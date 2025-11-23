@@ -1,0 +1,57 @@
+/* --- General header styling --- */
+header {
+  background-color: #f6f4f0;
+  padding: 0px 40px;
+  font-family: "Alegreya", serif;
+  min-height: 90vh; /* full screen height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar styles moved to navbar.css (use .main-navbar) */
+
+/* Hero content wrapper */
+.hero-content {
+  text-align: center;
+  margin-top: 80px; /* navbar now provides spacing */
+}
+
+/* Title */
+.hero-content h1 {
+  font-size: 7rem;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+}
+
+/* Subtitle */
+.hero-content h2 {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Description */
+.hero-content p {
+  font-size: 1rem;
+  color: #666;
+  padding:0 300px;
+  margin: 0 auto 30px auto;
+  line-height: 1.6;
+}
+
+.search-result {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+
+.search-result h2 {
+  margin: 5px 0;
+  font-size: 1.3rem;
+}
+
+.search-result p {
+  margin: 2px 0;
+}
+

@@ -1,0 +1,106 @@
+.header-song-search-page {
+    background-color: #f6f4f0;
+    padding: 15px 40px;
+    font-family: "Alegreya", serif;
+    min-height: 0vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.song-search-container {
+  padding: 10px 20px;
+  background-color: #f6f4f0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Only center content inside */
+.song-search-container h1,
+.song-search-container .search-controls,
+.song-search-container .song-grid {
+  text-align: center;
+}
+
+
+.song-search-container h1 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.search-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.search-controls input {
+  width: 300px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.genre-select {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.search-controls button {
+  padding: 10px 20px;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-controls button:hover {
+  background-color: #222222; /* darker monochrome */
+}
+
+/* Grid layout */
+.song-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.song-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.song-card:hover {
+  transform: translateY(-5px);
+}
+
+.song-card img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.song-card h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+}
+
+.song-card p {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* suggestions removed - using song cards only */

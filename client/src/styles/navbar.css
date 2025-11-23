@@ -1,0 +1,56 @@
+/* --- Global navbar styles for NavBar component --- */
+.main-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 40px;
+  position: relative;
+  z-index: 10;
+  margin: 0 auto 20px; /* keep consistent gap */
+  width: 100%;
+  max-width: 1200px;
+
+  /* Force consistent font */
+  font-family: "Alegreya", serif;
+  font-size: 1.1rem;
+}
+
+.main-navbar .logo img {
+  height: 80px;
+  width: auto;
+}
+
+.main-navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-navbar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.main-navbar ul li a:hover {
+  color: #ff7b00;
+}
+
+.main-navbar .search-bar input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 0.95rem;
+  width: 180px;
+  transition: all 0.3s ease;
+}
+
+.main-navbar .search-bar input:focus {
+  border-color: #ff7b00;
+  width: 220px;
+}

@@ -1,0 +1,96 @@
+.featured-section {
+  padding: 4rem 6rem;
+  background-color: #f6f4f0;
+  font-family: "Alegreya", serif;
+}
+
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}
+
+.featured-desc h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.featured-desc p {
+  color: #555;
+  font-size: 1.1rem;
+  max-width: 420px;
+}
+
+.featured-label h3 {
+  font-size: 1.8rem;
+  color: #222;
+  font-weight: bold;
+}
+
+/* GRID LAYOUT */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+.featured-card {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Overlay on hover */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+.featured-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay p {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.overlay span {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+  .featured-section {
+    padding: 2rem;
+  }
+}
