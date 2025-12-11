@@ -33,6 +33,12 @@
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+  background-color: #333;
 }
 
 .playlist-list {

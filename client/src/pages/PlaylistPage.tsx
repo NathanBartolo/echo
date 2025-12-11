@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPlaylists, createPlaylist, deletePlaylist } from "../api/playlists";
 import NavBar from "../components/NavBar";
+import ProtectedLink from "../components/ProtectedLink";
 import "../styles/playlist.css";
 
 export default function PlaylistPage() {
@@ -38,7 +39,7 @@ export default function PlaylistPage() {
         <div className="playlist-container">
           <div className="playlist-header">
             <h1>Your Playlists</h1>
-            <button className="create-btn" onClick={handleCreate}>+ Create Playlist</button>
+            <ProtectedLink onClick={handleCreate} className="create-btn">+ Create Playlist</ProtectedLink>
           </div>
 
           {loading ? (

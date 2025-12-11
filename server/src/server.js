@@ -3,22 +3,35 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
+const googleAuthRoutes = require("./routes/googleAuthRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const playlistRoutes = require("./routes/playlistRoutes");
 
 dotenv.config();
 connectDB();
+
+// Load passport after environment variables are available
+const passport = require("./config/passport");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(passport.initialize());
 
 // Root route
 app.get("/", (req, res) => res.send("Echo API is running..."));
 
 // User routes
 app.use("/api/users", userRoutes);
+// Auth routes (register, login, me)
+app.use("/api/auth", authRoutes);
+// Google OAuth routes
+app.use("/api/auth", googleAuthRoutes);
+// Admin routes (protected, admin-only)
+app.use("/api/admin", adminRoutes);
 
 // Test route
 app.get("/api/test", (req, res) => {

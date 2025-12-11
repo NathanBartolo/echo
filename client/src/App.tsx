@@ -6,6 +6,13 @@ import SongSearchPage from "./pages/SongSearchPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import PlaylistDetail from "./pages/PlaylistDetail";
 import AboutPage from "./pages/AboutPage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import AdminPanel from "./pages/AdminPanel";
+import AuthCallback from "./pages/AuthCallback";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
   return (
@@ -13,8 +20,13 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/discover" element={<SongSearchPage />} /> {/* Song search */}
-        <Route path="/playlists" element={<PlaylistPage />} />
-        <Route path="/playlist/:id" element={<PlaylistDetail />} />
+        <Route path="/playlists" element={<ProtectedRoute>{<PlaylistPage />}</ProtectedRoute>} />
+        <Route path="/playlist/:id" element={<ProtectedRoute>{<PlaylistDetail />}</ProtectedRoute>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/dashboard" element={<ProtectedRoute>{<Dashboard />}</ProtectedRoute>} />
+        <Route path="/admin" element={<AdminRoute>{<AdminPanel />}</AdminRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/song/:id" element={<SongPage />} />
       </Routes>
