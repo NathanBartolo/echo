@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
 import AuthCallback from "./pages/AuthCallback";
+import AlbumDetailPage from "./pages/AlbumDetailPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/admin" element={<AdminRoute>{<AdminPanel />}</AdminRoute>} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/song/:id" element={<SongPage />} />
+        <Route path="/album/:albumName/:artistName" element={<AlbumDetailPage />} />
       </Routes>
     </Router>
   );

@@ -12,38 +12,44 @@
 }
 
 .featured-desc h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #222;
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  color: #2c2c2c;
+  font-weight: 500;
 }
 
 .featured-desc p {
-  color: #555;
+  color: #5a5a5a;
   font-size: 1.1rem;
-  max-width: 420px;
+  max-width: 450px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .featured-label h3 {
-  font-size: 1.8rem;
-  color: #222;
-  font-weight: bold;
+  font-size: 1.6rem;
+  color: #2c2c2c;
+  font-weight: 500;
+  font-style: italic;
 }
 
 /* GRID LAYOUT */
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
+  gap: 2rem;
   justify-items: center;
 }
 
 .featured-card {
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 240px;
+  height: 240px;
   overflow: hidden;
+  border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .featured-card img {
@@ -53,8 +59,8 @@
 }
 
 .featured-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(44, 44, 44, 0.15);
 }
 
 /* Overlay on hover */

@@ -13,6 +13,7 @@ const PlaylistSchema = new mongoose.Schema({
   userId: { type: String, required: true }, // "demo-user" for now
   name: { type: String, required: true },
   description: { type: String, default: "" },
+  coverImage: { type: String, default: "" }, // base64 or image URL
   createdAt: { type: Date, default: Date.now },
   songs: [SongSchema]
 });

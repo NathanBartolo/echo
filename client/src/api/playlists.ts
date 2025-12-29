@@ -47,3 +47,12 @@ export async function removeSongFromPlaylist(id: string, songId: string) {
   const res = await fetch(`${API_BASE}/${id}/song/${songId}`, { method: "DELETE", headers: authHeader() });
   return res.json();
 }
+
+export async function updatePlaylistCover(id: string, coverImage: string) {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: "PUT",
+    headers: authHeader(),
+    body: JSON.stringify({ coverImage }),
+  });
+  return res.json();
+}

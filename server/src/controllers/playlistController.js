@@ -71,6 +71,34 @@ exports.deletePlaylist = async (req, res) => {
   }
 };
 
+// Update playlist (cover image, name, description)
+exports.updatePlaylist = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("Updating playlist:", id, "with data:", req.body);
+    
+    const playlist = await Playlist.findById(id);
+    if (!playlist) return res.status(404).json({ message: "Playlist not found" });
+
+    if (req.user && req.user.role !== "admin") {
+      if (playlist.userId.toString() !== req.user._id.toString()) {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+    }
+
+    if (req.body.coverImage) playlist.coverImage = req.body.coverImage;
+    if (req.body.name) playlist.name = req.body.name;
+    if (req.body.description !== undefined) playlist.description = req.body.description;
+
+    await playlist.save();
+    console.log("Playlist updated successfully:", playlist);
+    res.json(playlist);
+  } catch (err) {
+    console.error("Error updating playlist:", err);
+    res.status(500).json({ error: "Could not update playlist" });
+  }
+};
+
 // Add song to playlist
 exports.addSongToPlaylist = async (req, res) => {
   try {

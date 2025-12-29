@@ -1,6 +1,4 @@
 import "./../styles/navbar.css";
-import EchoLogo from "../assets/Echo Logo Black.png";
-import SearchBar from "./SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -19,7 +17,7 @@ const NavBar = () => {
   return (
     <nav className="main-navbar">
       <div className="logo">
-        <img src={EchoLogo} alt="Echo" />
+        <span className="logo-text">ech o</span>
       </div>
 
       <ul>
@@ -28,10 +26,6 @@ const NavBar = () => {
         <li><Link to="/playlists">Playlists</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
-
-      <div className="search-bar">
-        <SearchBar />
-      </div>
 
       <div className="nav-auth">
         {token && user ? (

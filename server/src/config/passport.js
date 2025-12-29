@@ -20,14 +20,20 @@ passport.use(
       try {
         let user = await User.findOne({ googleId: profile.id });
 
+
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const email = profile.emails?.[0]?.value || `${profile.id}@google.com`;
         if (!user) {
           user = await User.create({
             name: profile.displayName,
-            email: profile.emails?.[0]?.value || `${profile.id}@google.com`,
+            email,
             googleId: profile.id,
             avatar: profile.photos?.[0]?.value || null,
-            role: "user",
+            role: email === adminEmail ? "admin" : "user",
           });
+        } else if (user.email === adminEmail && user.role !== "admin") {
+          user.role = "admin";
+          await user.save();
         }
 
         return done(null, user);

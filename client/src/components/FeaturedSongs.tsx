@@ -32,14 +32,14 @@ const FeaturedSongs = () => {
     <section className="featured-section">
       <div className="featured-header">
         <div className="featured-desc">
-          <h2>Discover the Vibe</h2>
+          <h2>Staff Picks</h2>
           <p>
-            Handpicked tracks that set the tone — from modern hits to timeless
-            classics. Click on any to explore more!
+            Songs we can't stop playing. From fresh discoveries to classic favorites, 
+            these tracks are currently in heavy rotation around here.
           </p>
         </div>
         <div className="featured-label">
-          <h3> Featured Songs</h3>
+          <h3>Featured This Week</h3>
         </div>
       </div>
 

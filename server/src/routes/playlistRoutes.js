@@ -15,6 +15,9 @@ router.get("/:id", protect, controller.getPlaylistById);
 // Delete playlist (must belong to user)
 router.delete("/:id", protect, controller.deletePlaylist);
 
+// Update playlist (must belong to user)
+router.put("/:id", protect, controller.updatePlaylist);
+
 // Add song to playlist (must belong to user)
 router.post("/:id/song", protect, controller.addSongToPlaylist);
 

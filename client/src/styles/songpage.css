@@ -58,6 +58,50 @@
   width: 100%;
 }
 
+/* Improved button styling */
+button {
+  border-radius: 25px;
+  border: none;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #1a1a1a;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #3d3d3d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 44, 44, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Improved select styling */
+select {
+  padding: 10px 16px;
+  border-radius: 25px;
+  border: 2px solid #e0e0e0;
+  font-size: 1rem;
+  cursor: pointer;
+  background: white;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  border-color: #1a1a1a;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+}
+
 .song-desc {
   margin-top: 1.5rem;
   line-height: 1.6;

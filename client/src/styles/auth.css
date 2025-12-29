@@ -11,63 +11,69 @@
 }
 
 .auth-page h2 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 30px;
+  font-size: 2.2rem;
+  color: #2c2c2c;
+  margin-bottom: 35px;
   text-align: center;
+  font-weight: 500;
 }
 
 .auth-page form {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 45px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  backdrop-filter: blur(10px);
 }
 
 .auth-page label {
   display: block;
-  margin: 16px 0 6px 0;
+  margin: 18px 0 8px 0;
   font-weight: 500;
-  color: #333;
-  font-size: 0.95rem;
+  color: #2c2c2c;
+  font-size: 1rem;
 }
 
 .auth-page input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 0.95rem;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 2px solid #e8e5e0;
+  border-radius: 8px;
+  font-size: 1rem;
   font-family: inherit;
   box-sizing: border-box;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .auth-page input:focus {
   outline: none;
-  border-color: #ff7b00;
-  box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+  border-color: #d4a574;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
 }
 
 .auth-page form button[type="submit"] {
   width: 100%;
-  padding: 12px;
-  background-color: #222;
+  padding: 14px;
+  background: #2c2c2c;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 25px;
   font-size: 1rem;
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .auth-page form button[type="submit"]:hover {
-  background-color: #333;
+  background: #3d3d3d;
+  transform: translateY(-2px);
 }
 
 .error {
@@ -179,35 +185,57 @@
   margin-bottom: 20px;
 }
 
+/* Dashboard Styling */
+.dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
+  font-family: "Alegreya", serif;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard h2 {
+  font-size: 2.5rem;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
 .dashboard p {
   font-size: 1.1rem;
-  color: #666;
+  color: #5a5a5a;
   margin: 8px 0;
+  text-align: center;
 }
 
 .dashboard button {
-  margin-top: 16px;
+  margin: 10px;
   padding: 12px 24px;
-  background-color: #222;
+  background: #2c2c2c;
   color: white;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 25px;
+  font-family: inherit;
   font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .dashboard button:hover {
-  background-color: #333;
+  background: #3d3d3d;
+  transform: translateY(-2px);
 }
 
 .admin-btn {
-  background-color: #ff7b00 !important;
+  background: #d4a574 !important;
 }
 
 .admin-btn:hover {
-  background-color: #e86a00 !important;
+  background: #c19660 !important;
 }
 
 @media (max-width: 480px) {

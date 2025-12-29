@@ -18,7 +18,9 @@ const protect = async (req, res, next) => {
     }
   }
 
-  return res.status(401).json({ error: "Not authorized, token missing" });
+  // Allow demo-user without token
+  req.user = null;
+  next();
 };
 
 module.exports = { protect };

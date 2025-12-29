@@ -1,47 +1,154 @@
 .footer {
-  background: #222;
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
   color: #fff;
-  text-align: center;
-  padding: 40px 20px;
-  border-top: 1px solid #222;
   font-family: "Alegreya", serif;
+  position: relative;
+  overflow: hidden;
 }
 
-.footer-content img, .footer-links{
-  margin-bottom: 15px;
-}
-.footer-content img {
-  width: 120px;
-  height: auto;
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #d4a574 50%, transparent 100%);
 }
 
-.footer-content p {
-  font-size: 0.95rem;
-  max-width: 500px;
-  margin: 0 auto 25px;
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 40px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: start;
+}
 
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-logo-text {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #fff 0%, #d4a574 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-tagline {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 300px;
+  font-style: italic;
+}
+
+.footer-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.footer-section h4 {
+  font-size: 1.2rem;
+  color: #d4a574;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 
 .footer-links {
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .footer-links a {
   text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  color: #bbb;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  padding: 4px 0;
+  position: relative;
 }
 
 .footer-links a:hover {
-  color: #1db954; /* subtle accent green */
+  color: #d4a574;
+  transform: translateX(8px);
+}
+
+.footer-links a::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 1px;
+  background: #d4a574;
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::before {
+  width: 12px;
 }
 
 .footer-bottom {
-  font-size: 0.85rem;
-  color: #aaa;
-  border-top: 1px solid #222;
-  padding-top: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.footer-bottom-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  color: #999;
+  margin: 0;
+}
+
+.footer-social {
+  font-size: 0.9rem;
+  color: #d4a574;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 20px 30px;
+  }
+
+  .footer-sections {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .footer-logo-text {
+    font-size: 2.5rem;
+  }
 }

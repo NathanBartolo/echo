@@ -1,42 +1,300 @@
 /* --- General header styling --- */
 header {
-  background-color: #f6f4f0;
+  background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
   padding: 0px 40px;
   font-family: "Alegreya", serif;
-  min-height: 90vh; /* full screen height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
 }
 
-/* Navbar styles moved to navbar.css (use .main-navbar) */
+/* Background Interactive Elements */
+.background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated Sound Waves */
+.sound-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  opacity: 0.1;
+}
+
+.wave-bar {
+  width: 2px;
+  background: linear-gradient(to top, #d4a574, #c19660);
+  border-radius: 2px;
+  animation: wave-pulse 0.6s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+
+@keyframes wave-pulse {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* Vinyl Record */
+.vinyl-record {
+  position: absolute;
+  top: 10%;
+  right: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a1a1a 20%, #2c2c2c 21%, #2c2c2c 40%, #1a1a1a 41%);
+  opacity: 0.05;
+  animation: vinyl-spin 20s linear infinite;
+}
+
+.record-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes vinyl-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Floating Musical Notes */
+.floating-note {
+  position: absolute;
+  color: rgba(44, 44, 44, 0.1);
+  animation: float-up 8s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Click-generated Musical Notes */
+.click-note {
+  position: absolute;
+  font-weight: bold;
+  animation: click-note-float 2s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+  text-shadow: 0 0 10px currentColor;
+}
+
+@keyframes click-note-float {
+  0% {
+    transform: translateY(0) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-20px) scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px) scale(0.8) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
 
 /* Hero content wrapper */
 .hero-content {
   text-align: center;
-  margin-top: 80px; /* navbar now provides spacing */
+  margin-top: 80px;
+  position: relative;
+  z-index: 3;
 }
 
-/* Title */
-.hero-content h1 {
-  font-size: 7rem;
-  margin-bottom: 50px;
-  letter-spacing: 1px;
+/* Enhanced Title Container */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.main-title {
+  font-size: 5.5rem;
+  letter-spacing: -2px;
+  font-weight: 400;
+  color: #2c2c2c;
+  margin: 0;
+  background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: title-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(44, 44, 44, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 40px rgba(44, 44, 44, 0.6));
+  }
+}
+
+/* Sound Equalizer */
+.sound-equalizer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.eq-bar {
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to top, #d4a574, #c19660);
+  border-radius: 2px;
+  animation: equalizer 1.2s ease-in-out infinite alternate;
+}
+
+.eq-bar:nth-child(1) { animation-delay: 0s; }
+.eq-bar:nth-child(2) { animation-delay: 0.2s; }
+.eq-bar:nth-child(3) { animation-delay: 0.4s; }
+.eq-bar:nth-child(4) { animation-delay: 0.6s; }
+.eq-bar:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes equalizer {
+  0% { transform: scaleY(0.5); }
+  100% { transform: scaleY(1.5); }
 }
 
 /* Subtitle */
 .hero-content h2 {
-  font-size: 1.8rem;
-  color: #555;
-  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #5a5a5a;
+  margin-bottom: 25px;
+  font-weight: 400;
+  font-style: italic;
+  animation: subtitle-fade-in 2s ease-out 0.5s both;
+}
+
+@keyframes subtitle-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Description */
 .hero-content p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #666;
-  padding:0 300px;
-  margin: 0 auto 30px auto;
-  line-height: 1.6;
+  padding: 0 200px;
+  margin: 0 auto 40px auto;
+  line-height: 1.7;
+  font-weight: 400;
+  animation: description-fade-in 2s ease-out 1s both;
+}
+
+@keyframes description-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CTA Button */
+.cta-container {
+  animation: cta-fade-in 2s ease-out 1.5s both;
+}
+
+.explore-btn {
+  position: relative;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #2c2c2c 0%, #3d3d3d 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 25px rgba(44, 44, 44, 0.3);
+}
+
+.explore-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(44, 44, 44, 0.4);
+}
+
+.explore-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.6s ease;
+}
+
+.explore-btn:hover .btn-wave {
+  width: 300px;
+  height: 300px;
+}
+
+@keyframes cta-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .search-result {

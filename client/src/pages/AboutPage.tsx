@@ -7,60 +7,43 @@ const AboutPage = () => {
       <NavBar />
 
       <main className="about-content">
-        <section className="about-intro">
-          <h1>About The Beatles</h1>
-          <p>
-            The Beatles were an English rock band formed in Liverpool in 1960. With
-            members John Lennon, Paul McCartney, George Harrison, and Ringo Starr,
-            they became the most commercially successful and critically acclaimed
-            act in the history of popular music.
-          </p>
+
+        <section className="story-section">
+          <div className="story-grid">
+            <div className="story-text">
+              <h2>Our Story</h2>
+              <p>
+                Echo was born from a simple idea: music should be personal, discoverable, and meaningful. 
+                We created a platform that doesn't just organize your music — it helps you create soundtracks 
+                for your life's moments.
+              </p>
+              <p>
+                Whether you're crafting the perfect road trip playlist, curating study vibes, or collecting 
+                songs that bring back memories, Echo makes it effortless to discover, organize, and share 
+                the music that matters to you.
+              </p>
+            </div>
+            <div className="story-visual">
+              <div className="floating-notes">
+                <span>♪</span>
+                <span>♫</span>
+                <span>♬</span>
+                <span>𝄞</span>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section className="cards">
-          <div id="card1" className="card">
-            <img src="https://via.placeholder.com/700x1000?text=Paul+McCartney" alt="Paul McCartney" />
-            <div className="overlay">
-              <h3>Paul McCartney</h3>
-              <p>
-                Paul McCartney is a legendary musician, singer, and songwriter best known for his role as the
-                bassist and one of the primary songwriters of The Beatles. His melodic bass lines, powerful voice,
-                and iconic compositions such as "Hey Jude" and "Yesterday" helped shape the sound of the 1960s and beyond.
-              </p>
-            </div>
-          </div>
+        
 
-          <div id="card2" className="card">
-            <img src="https://via.placeholder.com/700x1000?text=George+Harrison" alt="George Harrison" />
-            <div className="overlay">
-              <h3>George Harrison</h3>
-              <p>
-                George Harrison, often called the "Quiet Beatle," was the lead guitarist and one of the key songwriters of The Beatles.
-                His contributions to the band's music, including hits like "Here Comes the Sun" and "Something," highlighted his deep interest in spirituality and Indian culture.
-              </p>
-            </div>
-          </div>
-
-          <div id="card3" className="card">
-            <img src="https://via.placeholder.com/700x1000?text=John+Lennon" alt="John Lennon" />
-            <div className="overlay">
-              <h3>John Lennon</h3>
-              <p>
-                John Lennon was an influential musician, peace activist, and one of the founding members of The Beatles.
-                Known for his wit, creativity, and thought-provoking lyrics, Lennon was the driving force behind songs like "Imagine".
-              </p>
-            </div>
-          </div>
-
-          <div id="card4" className="card">
-            <img src="https://via.placeholder.com/700x1000?text=Ringo+Starr" alt="Ringo Starr" />
-            <div className="overlay">
-              <h3>Ringo Starr</h3>
-              <p>
-                Ringo Starr, drummer for The Beatles, is known for his steady, innovative style that shaped their iconic sound.
-                He sang hits like "Yellow Submarine" and continued to inspire music fans worldwide.
-              </p>
-            </div>
+       
+        <section className="cta-section">
+          <div className="cta-content">
+            <h2>Ready to Start Your Musical Journey?</h2>
+            <p>Join thousands of music lovers who've made Echo their home for discovery and curation.</p>
+            <button className="cta-button" onClick={() => window.location.href = '/discover'}>
+              Start Exploring
+            </button>
           </div>
         </section>
       </main>
