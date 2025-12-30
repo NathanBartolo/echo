@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../styles/navbar.css";
 import "./../styles/songSearch.css";
 import Navbar from "../components/NavBar";
+import HeartButton from "../components/HeartButton";
 import { useNavigate } from "react-router-dom";
 
 interface Song {
@@ -316,11 +317,59 @@ const SongSearchPage = () => {
     <>
       <Navbar />
       <div className="song-search-container">
+        {/* Background Elements */}
+        <div className="background-elements">
+          <div className="sound-waves">
+            {Array.from({ length: 80 }).map((_, i) => (
+              <div
+                key={i}
+                className="wave-bar"
+                style={{
+                  height: `${Math.random() * 120 + 60}px`,
+                  animationDelay: `${Math.random() * 0.8}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="vinyl-record">
+            <div className="record-center"></div>
+          </div>
+
+          {Array.from({ length: 20 }).map((_, i) => {
+            const notes = ['♪', '♫', '♬', '𝄞'];
+            return (
+              <div
+                key={i}
+                className="floating-note"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  fontSize: `${Math.random() * 40 + 25}px`,
+                  animationDelay: `${Math.random() * 8}s`,
+                  animationDuration: `${Math.random() * 5 + 6}s`,
+                }}
+              >
+                {notes[Math.floor(Math.random() * notes.length)]}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Hero Section */}
+        <div className="discover-hero">
+          <h1 className="discover-title">
+            Discover Music<span className="title-accent">, Your Way</span>
+          </h1>
+          <p className="discover-subtitle">
+            Search, explore, and curate your perfect collection
+          </p>
+        </div>
+
         <div className="search-section">
           <div className="search-bar-wrapper">
             <input
               type="text"
-              placeholder="Search songs, artists..."
+              placeholder="Search songs, artists, albums..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -478,6 +527,18 @@ const SongSearchPage = () => {
                     <img src={(result.data as Song).cover} alt={(result.data as Song).title} />
                     <div className="song-card-overlay">
                       <span className="play-icon">▶</span>
+                    </div>
+                    <div className="card-heart">
+                      <HeartButton
+                        song={{
+                          id: String((result.data as Song).trackId ?? (result.data as Song).title),
+                          title: (result.data as Song).title,
+                          artist: (result.data as Song).artist,
+                          album: (result.data as Song).album,
+                          cover: (result.data as Song).cover,
+                        }}
+                        size="medium"
+                      />
                     </div>
                   </div>
                   <div className="song-card-info">

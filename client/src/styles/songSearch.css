@@ -3,6 +3,134 @@
   background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
   min-height: 100vh;
   font-family: "Alegreya", serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Interactive Elements */
+.background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated Sound Waves */
+.sound-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  opacity: 0.1;
+}
+
+.wave-bar {
+  width: 2px;
+  background: linear-gradient(to top, #d4a574, #c19660);
+  border-radius: 2px;
+  animation: wave-pulse 0.6s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+
+@keyframes wave-pulse {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* Vinyl Record */
+.vinyl-record {
+  position: absolute;
+  top: 10%;
+  right: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1a1a1a 20%, #2c2c2c 21%, #2c2c2c 40%, #1a1a1a 41%);
+  opacity: 0.05;
+  animation: vinyl-spin 20s linear infinite;
+}
+
+.record-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes vinyl-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Floating Musical Notes */
+.floating-note {
+  position: absolute;
+  color: rgba(212, 165, 116, 0.2);
+  animation: float-up 8s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+  font-weight: bold;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Hero Section */
+.discover-hero {
+  text-align: center;
+  padding: 30px 20px 35px;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.discover-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #2c2c2c;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.title-accent {
+  color: #d4a574;
+}
+
+.discover-subtitle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+  max-width: 500px;
+  margin: 0 auto;
+  font-weight: 400;
 }
 
 .discover-header {
@@ -31,6 +159,8 @@
   max-width: 800px;
   margin: 0 auto 50px;
   padding: 0 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .search-bar-wrapper {
@@ -228,6 +358,24 @@
   transform: scale(1.05);
 }
 
+.card-heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-heart .heart-btn {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+}
+
+.song-card:hover .card-heart {
+  opacity: 1;
+}
+
 .song-card-overlay {
   position: absolute;
   top: 0;
@@ -384,9 +532,14 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+/* Tablet */
+@media (max-width: 1024px) {
   .discover-header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+
+  .discover-header p {
+    font-size: 1rem;
   }
 
   .filters-section {
@@ -394,27 +547,28 @@
   }
 
   .filter-buttons {
-    gap: 8px;
+    gap: 10px;
   }
 
   .filter-btn {
-    padding: 6px 12px;
-    font-size: 0.85rem;
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 
   .song-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
   }
 }
 
-@media (max-width: 480px) {
+/* Phone */
+@media (max-width: 640px) {
   .song-search-container {
     padding: 20px 15px 40px;
   }
 
   .discover-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .discover-header p {
@@ -427,12 +581,21 @@
   }
 
   .filter-group label {
+    font-size: 0.9rem;
+  }
+
+  .filter-buttons {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
     font-size: 0.85rem;
   }
 
   .song-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
     padding: 0 10px;
   }
 

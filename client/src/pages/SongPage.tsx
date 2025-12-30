@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import "../styles/songpage.css";
 import NavBar from "../components/NavBar";
+import HeartButton from "../components/HeartButton";
 import { getPlaylists, addSongToPlaylist } from "../api/playlists";
 
 interface Song {
@@ -59,6 +60,44 @@ const SongPage = () => {
 
   return (
     <div className="song-page">
+      {/* Background Elements */}
+      <div className="background-elements">
+        <div className="sound-waves">
+          {Array.from({ length: 80 }).map((_, i) => (
+            <div
+              key={i}
+              className="wave-bar"
+              style={{
+                height: `${Math.random() * 120 + 60}px`,
+                animationDelay: `${Math.random() * 0.8}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="vinyl-record">
+          <div className="record-center"></div>
+        </div>
+
+        {Array.from({ length: 20 }).map((_, i) => {
+          const notes = ['♪', '♫', '♬', '𝄞'];
+          return (
+            <div
+              key={i}
+              className="floating-note"
+              style={{
+                left: `${Math.random() * 100}%`,
+                fontSize: `${Math.random() * 40 + 25}px`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${Math.random() * 5 + 6}s`,
+              }}
+            >
+              {notes[Math.floor(Math.random() * notes.length)]}
+            </div>
+          );
+        })}
+      </div>
+
       <NavBar />
 
       {/* SONG DETAILS */}
@@ -72,19 +111,30 @@ const SongPage = () => {
           <h2>{song.artist}</h2>
           <p><em>{song.album}</em></p>
 
+          <div className="song-actions">
+            <HeartButton
+              song={{
+                id: String(id),
+                title: song.title,
+                artist: song.artist,
+                album: song.album,
+                cover: song.cover,
+              }}
+              size="large"
+            />
+          </div>
+
           {song.previewUrl && (
             <audio controls src={song.previewUrl} className="audio-player" />
           )}
 
-          <div style={{ marginTop: 16 }}>
-            <label style={{ marginRight: 8 }}>Add to playlist:</label>
+          <div className="playlist-controls">
             <select value={selectedPlaylist ?? ""} onChange={(e) => setSelectedPlaylist(e.target.value)}>
               {playlists.map((p) => (
                 <option key={p._id} value={p._id}>{p.name}</option>
               ))}
             </select>
             <button
-              style={{ marginLeft: 8 }}
               onClick={async () => {
                 if (!selectedPlaylist || !song) return setPlaylistMsg("Select a playlist first");
                 try {
@@ -97,9 +147,9 @@ const SongPage = () => {
                 setTimeout(() => setPlaylistMsg(null), 2500);
               }}
             >Add</button>
-            {playlistMsg && <span style={{ marginLeft: 12 }}>{playlistMsg}</span>}
           </div>
-
+          {playlistMsg && <div style={{ marginTop: 8, textAlign: 'center' }}>{playlistMsg}</div>}
+          
           <p className="song-desc">
             This track is part of the album <strong>{song.album}</strong> by{" "}
             <strong>{song.artist}</strong>. Enjoy a preview or add it to your

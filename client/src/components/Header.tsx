@@ -133,7 +133,13 @@ const Header = () => {
       {/* HERO SECTION */}
       <section className="hero-content">
         <div className="title-container">
-          <h1 className="main-title">ech o</h1>
+          <h1 className="main-title">
+            <span className="letter">e</span>
+            <span className="letter">c</span>
+            <span className="letter">h</span>
+            <span className="letter space"> </span>
+            <span className="letter">o</span>
+          </h1>
           <div className="sound-equalizer">
             <div className="eq-bar"></div>
             <div className="eq-bar"></div>

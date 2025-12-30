@@ -45,9 +45,9 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <div className="footer-bottom-content">
-          <p>&copy; {new Date().getFullYear()} Echo. Made with ♫ for music lovers.</p>
+          <p>&copy; {new Date().getFullYear()} Echo. Made by music lovers for music lovers.</p>
           <div className="footer-social">
-            <span>Follow the beat</span>
+            <span>Where music meets memories</span>
           </div>
         </div>
       </div>

@@ -114,13 +114,13 @@ const AdminPanel = () => {
               <tbody>
                 {users.map((u) => (
                   <tr key={u._id}>
-                    <td>{u.name}</td>
-                    <td>{u.email}</td>
-                    <td>
+                    <td data-label="Name">{u.name}</td>
+                    <td data-label="Email">{u.email}</td>
+                    <td data-label="Role">
                       <span className={`role-badge role-${u.role}`}>{u.role}</span>
                     </td>
-                    <td>{new Date(u.createdAt).toLocaleDateString()}</td>
-                    <td className="actions">
+                    <td data-label="Joined">{new Date(u.createdAt).toLocaleDateString()}</td>
+                    <td data-label="Actions" className="actions">
                       <button
                         className="toggle-btn"
                         onClick={() => handleToggleRole(u._id, u.role)}

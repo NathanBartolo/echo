@@ -28,6 +28,15 @@ const userSchema = new mongoose.Schema(
 		avatar: {
 			type: String,
 		},
+		favorites: [
+			{
+				id: String,
+				title: String,
+				artist: String,
+				album: String,
+				cover: String,
+			}
+		],
 	},
 	{ timestamps: true }
 );

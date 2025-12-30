@@ -56,3 +56,12 @@ export async function updatePlaylistCover(id: string, coverImage: string) {
   });
   return res.json();
 }
+
+export async function updatePlaylistDescription(id: string, description: string) {
+  const res = await fetch(`${API_BASE}/${id}`, {
+    method: "PUT",
+    headers: authHeader(),
+    body: JSON.stringify({ description }),
+  });
+  return res.json();
+}

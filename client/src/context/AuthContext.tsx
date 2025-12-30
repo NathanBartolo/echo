@@ -1,4 +1,13 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { getFavorites } from "../api/favorites";
+
+type Song = {
+  id: string;
+  title: string;
+  artist: string;
+  album?: string;
+  cover?: string;
+};
 
 type User = {
   id: string;
@@ -11,15 +20,23 @@ type User = {
 type AuthContextType = {
   user: User;
   token: string | null;
+  favorites: Song[];
   login: (token: string, user: User) => void;
   logout: () => void;
+  updateUser: (user: User) => void;
+  setFavorites: (favorites: Song[]) => void;
+  isFavorite: (songId: string) => boolean;
 };
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
+  favorites: [],
   login: () => {},
   logout: () => {},
+  updateUser: () => {},
+  setFavorites: () => {},
+  isFavorite: () => false,
 });
 
 
@@ -33,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const rawToken = localStorage.getItem("authToken");
     return rawToken || null;
   });
+  const [favorites, setFavorites] = useState<Song[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -45,6 +63,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     else localStorage.removeItem("authUser");
   }, [user]);
 
+  // Load favorites when user logs in
+  useEffect(() => {
+    const loadFavorites = async () => {
+      if (token && user) {
+        try {
+          const data = await getFavorites();
+          setFavorites(data);
+        } catch (err) {
+          console.error("Failed to load favorites:", err);
+        }
+      } else {
+        setFavorites([]);
+      }
+    };
+    loadFavorites();
+  }, [token, user]);
+
   const login = (newToken: string, newUser: User) => {
     setToken(newToken);
     setUser(newUser);
@@ -53,15 +88,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setToken(null);
     setUser(null);
+    setFavorites([]);
+  };
+
+  const updateUser = (newUser: User) => {
+    setUser(newUser);
+  };
+
+  const isFavorite = (songId: string) => {
+    return favorites.some(fav => fav.id === songId);
   };
 
   if (loading) return <div>Loading...</div>;
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, favorites, login, logout, updateUser, setFavorites, isFavorite }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return context;
 };
 
 export default AuthProvider;

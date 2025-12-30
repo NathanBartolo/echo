@@ -160,6 +160,29 @@ header {
   animation: title-glow 3s ease-in-out infinite alternate;
 }
 
+.main-title .letter {
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.main-title .letter.space {
+  width: 0.3em;
+}
+
+.main-title .letter:hover {
+  background: linear-gradient(135deg, #d4a574 0%, #c19660 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: translateY(-5px) scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(212, 165, 116, 0.5));
+}
+
 @keyframes title-glow {
   0% {
     filter: drop-shadow(0 0 20px rgba(44, 44, 44, 0.3));
@@ -313,3 +336,137 @@ header {
   margin: 2px 0;
 }
 
+/* Responsive Styles */
+/* Tablet */
+@media (max-width: 1024px) {
+  header {
+    min-height: 90vh;
+    padding: 0 20px;
+  }
+
+  .hero-content {
+    margin-top: 50px;
+  }
+
+  .main-title {
+    font-size: 4rem;
+    letter-spacing: -1px;
+  }
+
+  .hero-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-content p {
+    padding: 0 80px;
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .title-container {
+    gap: 20px;
+  }
+
+  .sound-equalizer {
+    gap: 3px;
+  }
+
+  .eq-bar {
+    width: 3px;
+    height: 16px;
+  }
+
+  .explore-btn {
+    padding: 14px 35px;
+    font-size: 1rem;
+  }
+
+  .vinyl-record {
+    width: 200px;
+    height: 200px;
+    opacity: 0.04;
+  }
+
+  .sound-waves {
+    height: 120px;
+    opacity: 0.08;
+  }
+
+  .wave-bar {
+    width: 3px;
+  }
+}
+
+/* Phone */
+@media (max-width: 640px) {
+  header {
+    min-height: 85vh;
+    padding: 0 15px;
+  }
+
+  .hero-content {
+    margin-top: 80px;
+  }
+
+  .title-container {
+    gap: 15px;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+    letter-spacing: 0;
+  }
+
+  .main-title .letter:hover {
+    transform: none;
+    filter: none;
+  }
+
+  .sound-equalizer {
+    gap: 2px;
+  }
+
+  .eq-bar {
+    width: 2.5px;
+    height: 14px;
+  }
+
+  .hero-content h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .hero-content p {
+    display: none;
+  }
+
+  .explore-btn {
+    padding: 13px 40px;
+    font-size: 0.95rem;
+  }
+
+  .vinyl-record {
+    opacity: 0.03;
+    width: 150px;
+    height: 150px;
+  }
+
+  .sound-waves {
+    opacity: 0.05;
+    height: 80px;
+  }
+
+  .floating-note {
+    opacity: 0.05;
+  }
+
+  .click-note {
+    opacity: 0.3;
+  }
+
+  .explore-btn:hover .btn-wave {
+    display: none;
+  }}

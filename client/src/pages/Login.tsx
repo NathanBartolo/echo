@@ -33,6 +33,44 @@ const Login = () => {
 
   return (
     <div className="auth-page">
+      {/* Background Elements */}
+      <div className="background-elements">
+        <div className="sound-waves">
+          {Array.from({ length: 80 }).map((_, i) => (
+            <div
+              key={i}
+              className="wave-bar"
+              style={{
+                height: `${Math.random() * 120 + 60}px`,
+                animationDelay: `${Math.random() * 0.8}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="vinyl-record">
+          <div className="record-center"></div>
+        </div>
+
+        {Array.from({ length: 20 }).map((_, i) => {
+          const notes = ['♪', '♫', '♬', '𝄞'];
+          return (
+            <div
+              key={i}
+              className="floating-note"
+              style={{
+                left: `${Math.random() * 100}%`,
+                fontSize: `${Math.random() * 40 + 25}px`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${Math.random() * 5 + 6}s`,
+              }}
+            >
+              {notes[Math.floor(Math.random() * notes.length)]}
+            </div>
+          );
+        })}
+      </div>
+
       <h2>Login</h2>
       <form onSubmit={onSubmit}>
         <label>Email</label>

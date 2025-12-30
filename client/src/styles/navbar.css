@@ -1,8 +1,8 @@
 /* --- Global navbar styles for NavBar component --- */
 .main-navbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
   align-items: center;
-  justify-content: space-between;
   padding: 12px 40px;
   position: relative;
   z-index: 10;
@@ -40,6 +40,7 @@
   gap: 40px;
   margin: 0;
   padding: 0;
+  justify-content: center;
 }
 
 .main-navbar ul li a {
@@ -60,12 +61,17 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  justify-content: flex-end;
 }
 
 .auth-links {
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.mobile-auth {
+  display: none;
 }
 
 .auth-link {
@@ -85,7 +91,7 @@
 }
 
 .signup-link {
-  background-color: #ff7b00;
+  background-color:  #d4a574;
   color: white;
   border: none;
   cursor: pointer;
@@ -116,11 +122,21 @@
   font-weight: 500;
   color: #333;
   transition: all 0.3s ease;
+  min-width: 140px;
+  justify-content: center;
 }
 
 .user-btn:hover {
-  border-color: #ff7b00;
+  border-color:  #d4a574;
   background-color: rgba(255, 123, 0, 0.05);
+}
+
+.user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #d4a574;
 }
 
 .user-name {
@@ -136,7 +152,7 @@
 }
 
 .user-btn:hover .dropdown-icon {
-  color: #ff7b00;
+  color:  #d4a574;
 }
 
 .dropdown-menu {
@@ -183,3 +199,188 @@
   color: #ff3b30;
 }
 
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .navbar-content {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-navbar {
+    padding: 12px 0;
+  }
+
+  .navbar-content {
+    padding: 0 15px;
+  }
+
+  .nav-logo {
+    font-size: 1.6rem;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+
+  .user-info {
+    gap: 8px;
+  }
+
+  .user-name {
+    font-size: 0.85rem;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+  outline: none;
+}
+
+.hamburger-btn:hover {
+  background: none;
+  transform: none;
+  box-shadow: none;
+  border: none;
+}
+
+.hamburger-btn:focus {
+  outline: none;
+}
+
+.hamburger-btn span {
+  width: 24px;
+  height: 2px;
+  background: #2c2c2c;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger-btn span.active:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-btn span.active:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn span.active:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 640px) {
+  .main-navbar {
+    padding: 12px 20px;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logo-text {
+    font-size: 2rem;
+  }
+
+  .main-navbar ul {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 70%;
+    height: 100vh;
+    background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
+    flex-direction: column;
+    padding: 80px 30px 30px;
+    gap: 0;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .main-navbar ul.mobile-open {
+    left: 0;
+  }
+
+  .main-navbar ul li {
+    width: 100%;
+    border-bottom: 1px solid rgba(44, 44, 44, 0.1);
+  }
+
+  .main-navbar ul li a {
+    display: block;
+    padding: 16px 0;
+    font-size: 1.2rem;
+  }
+
+  .nav-auth {
+    margin-left: 50px;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-btn {
+    padding: 8px;
+    min-width: 40px;
+  }
+
+  .dropdown-icon {
+    margin: 0;
+  }
+
+  .desktop-auth {
+    display: none;
+  }
+
+  .mobile-auth {
+    display: flex;
+  }
+
+  .mobile-auth .auth-link {
+    font-size: 0.8rem;
+    padding: 7px 14px;
+    white-space: nowrap;
+  }
+
+  .auth-links {
+    gap: 8px;
+  }
+
+  .auth-link {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+    text-align: center;
+  }
+}

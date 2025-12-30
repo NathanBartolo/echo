@@ -1,6 +1,7 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/NavBar";
+import { getPlaylists, addSongToPlaylist } from "../api/playlists";
 import "../styles/albumDetail.css";
 
 interface Song {
@@ -55,6 +56,9 @@ const AlbumDetailPage = () => {
   const [album, setAlbum] = useState<Album | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
+  const [playlists, setPlaylists] = useState<any[]>([]);
+  const [showPlaylistMenu, setShowPlaylistMenu] = useState<number | null>(null);
+  const [addMessage, setAddMessage] = useState<{ index: number; message: string } | null>(null);
 
   // Cleanup audio on component unmount
   useEffect(() => {
@@ -65,6 +69,32 @@ const AlbumDetailPage = () => {
       }
     };
   }, [currentAudio]);
+
+  // Load user playlists
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getPlaylists();
+        setPlaylists(data || []);
+      } catch (err) {
+        console.error("Error loading playlists", err);
+      }
+    })();
+  }, []);
+
+  // Handle adding song to playlist
+  const handleAddToPlaylist = async (song: Song, playlistId: string, index: number) => {
+    try {
+      await addSongToPlaylist(playlistId, song);
+      setAddMessage({ index, message: "Added!" });
+      setTimeout(() => setAddMessage(null), 2000);
+      setShowPlaylistMenu(null);
+    } catch (err) {
+      console.error(err);
+      setAddMessage({ index, message: "Failed" });
+      setTimeout(() => setAddMessage(null), 2000);
+    }
+  };
 
   useEffect(() => {
     const fetchAlbumSongs = async () => {
@@ -124,6 +154,44 @@ const AlbumDetailPage = () => {
     <>
       <Navbar />
       <div className="album-detail-container">
+        {/* Background Elements */}
+        <div className="background-elements">
+          <div className="sound-waves">
+            {Array.from({ length: 80 }).map((_, i) => (
+              <div
+                key={i}
+                className="wave-bar"
+                style={{
+                  height: `${Math.random() * 120 + 60}px`,
+                  animationDelay: `${Math.random() * 0.8}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="vinyl-record">
+            <div className="record-center"></div>
+          </div>
+
+          {Array.from({ length: 20 }).map((_, i) => {
+            const notes = ['♪', '♫', '♬', '𝄞'];
+            return (
+              <div
+                key={i}
+                className="floating-note"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  fontSize: `${Math.random() * 40 + 25}px`,
+                  animationDelay: `${Math.random() * 8}s`,
+                  animationDuration: `${Math.random() * 5 + 6}s`,
+                }}
+              >
+                {notes[Math.floor(Math.random() * notes.length)]}
+              </div>
+            );
+          })}
+        </div>
+
         <div className="album-header">
           <button className="back-btn" onClick={() => navigate(-1)}>
             ← Back
@@ -169,10 +237,6 @@ const AlbumDetailPage = () => {
                 <div
                   key={index}
                   className="song-list-item"
-                  onClick={() => {
-                    const id = song.trackId ?? song.title;
-                    navigate(`/song/${encodeURIComponent(String(id))}`, { state: { song } });
-                  }}
                   onMouseEnter={() => playSongPreview(song.previewUrl)}
                   onMouseLeave={stopSongPreview}
                 >
@@ -180,7 +244,13 @@ const AlbumDetailPage = () => {
                   <div className="song-thumbnail">
                     <img src={song.cover} alt={song.title} />
                   </div>
-                  <div className="song-details">
+                  <div 
+                    className="song-details"
+                    onClick={() => {
+                      const id = song.trackId ?? song.title;
+                      navigate(`/song/${encodeURIComponent(String(id))}`, { state: { song } });
+                    }}
+                  >
                     <h3>{song.title}</h3>
                     <p>{song.artist}</p>
                   </div>
@@ -191,7 +261,47 @@ const AlbumDetailPage = () => {
                       <span>--:--</span>
                     )}
                   </div>
-                  <div className="song-play-btn">▶</div>
+                  <div className="song-actions">
+                    <button 
+                      className="song-play-btn"
+                      onClick={() => {
+                        const id = song.trackId ?? song.title;
+                        navigate(`/song/${encodeURIComponent(String(id))}`, { state: { song } });
+                      }}
+                    >
+                      ▶
+                    </button>
+                    <div className="add-to-playlist-container">
+                      <button
+                        className="add-to-playlist-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowPlaylistMenu(showPlaylistMenu === index ? null : index);
+                        }}
+                      >
+                        + Add
+                      </button>
+                      {showPlaylistMenu === index && playlists.length > 0 && (
+                        <div className="playlist-dropdown">
+                          {playlists.map((playlist) => (
+                            <div
+                              key={playlist._id}
+                              className="playlist-option"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleAddToPlaylist(song, playlist._id, index);
+                              }}
+                            >
+                              {playlist.name}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {addMessage && addMessage.index === index && (
+                        <span className="add-message">{addMessage.message}</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

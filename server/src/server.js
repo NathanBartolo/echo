@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const googleAuthRoutes = require("./routes/googleAuthRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const playlistRoutes = require("./routes/playlistRoutes");
+const favoritesRoutes = require("./routes/favoritesRoutes");
 
 dotenv.config();
 connectDB();
@@ -32,6 +33,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/auth", googleAuthRoutes);
 // Admin routes (protected, admin-only)
 app.use("/api/admin", adminRoutes);
+// Favorites routes
+app.use("/api/favorites", favoritesRoutes);
 
 // Test route
 app.get("/api/test", (req, res) => {
@@ -100,14 +103,14 @@ app.get("/api/song/:id", async (req, res) => {
 
 app.get("/api/featured", async (req, res) => {
   const featuredQueries = [
-    "Gnarly Katseye",
-    "Juno Sabrina Carpenter",
-    "Locked Out Of Heaven Bruno Mars",
-    "Iris Goo Goo Dolls",
+    "Gameboy Katseye",
+    "Opalite Taylor Swift",
+    "Man I Need Olivia Dean",
+    "Updside Down Diana Ross",
     "Multo Cup Of Joe",
-    "Gravity John Mayer",
-    "Come Inside Of My Heart Iv Of Spades",
-    "Pantropiko Bini"
+    "back to friends sombr",
+    "Where is my husband Raye",
+    "CHANEL Tyla"
   ];
 
   try {

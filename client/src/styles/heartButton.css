@@ -1,0 +1,76 @@
+/* Heart Button Styles */
+.heart-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.heart-btn:hover {
+  background: rgba(212, 165, 116, 0.1);
+  transform: scale(1.1);
+}
+
+.heart-btn.favorited {
+  color: #d4a574;
+}
+
+.heart-btn.favorited:hover {
+  background: rgba(212, 165, 116, 0.15);
+}
+
+.heart-btn svg {
+  transition: all 0.3s ease;
+}
+
+.heart-btn:active svg {
+  transform: scale(0.9);
+}
+
+/* Sizes */
+.heart-btn-small {
+  padding: 6px;
+}
+
+.heart-btn-small svg {
+  width: 16px;
+  height: 16px;
+}
+
+.heart-btn-medium {
+  padding: 8px;
+}
+
+.heart-btn-medium svg {
+  width: 20px;
+  height: 20px;
+}
+
+.heart-btn-large {
+  padding: 10px;
+}
+
+.heart-btn-large svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Animation */
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.heart-btn.favorited svg {
+  animation: heartBeat 0.3s ease;
+}

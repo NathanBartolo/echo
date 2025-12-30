@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import HeartButton from "./HeartButton";
 import "./../styles/featured.css";
 
 interface Song {
@@ -30,35 +31,52 @@ const FeaturedSongs = () => {
 
   return (
     <section className="featured-section">
-      <div className="featured-header">
-        <div className="featured-desc">
-          <h2>Staff Picks</h2>
-          <p>
-            Songs we can't stop playing. From fresh discoveries to classic favorites, 
-            these tracks are currently in heavy rotation around here.
+      <div className="featured-container">
+        <div className="featured-header">
+          <div className="header-top">
+            <span className="featured-badge">Curated Weekly</span>
+            <h2 className="featured-title">
+              Staff Picks<span className="title-dot">.</span>
+            </h2>
+          </div>
+          <p className="featured-description">
+            Songs we can't stop playing. Fresh discoveries and timeless favorites 
+            in heavy rotation.
           </p>
         </div>
-        <div className="featured-label">
-          <h3>Featured This Week</h3>
-        </div>
-      </div>
 
-      <div className="featured-grid">
-        {featured.map((song) => (
-          <div
-            key={song.id}
-            className="featured-card"
-            onClick={() =>
-              navigate(`/song/${song.id}`, { state: { song } })
-            }
-          >
-            <img src={song.cover} alt={song.title} />
-            <div className="overlay">
-              <p>{song.title}</p>
-              <span>{song.artist}</span>
+        <div className="featured-grid">
+          {featured.map((song, index) => (
+            <div
+              key={song.id}
+              className={`featured-card card-${(index % 4) + 1}`}
+              onClick={() =>
+                navigate(`/song/${song.id}`, { state: { song } })
+              }
+            >
+              <div className="card-image">
+                <img src={song.cover} alt={song.title} />
+                <div className="card-heart">
+                  <HeartButton
+                    song={{
+                      id: String(song.id),
+                      title: song.title,
+                      artist: song.artist,
+                      album: song.album,
+                      cover: song.cover,
+                    }}
+                    size="medium"
+                  />
+                </div>
+              </div>
+              <div className="card-content">
+                <h3 className="card-title">{song.title}</h3>
+                <p className="card-artist">{song.artist}</p>
+              </div>
+              <div className="card-number">{String(index + 1).padStart(2, '0')}</div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
