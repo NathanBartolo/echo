@@ -2,8 +2,13 @@ const API_BASE = "http://localhost:5000/api/favorites";
 
 function authHeader() {
   const token = localStorage.getItem("authToken");
-  if (!token) return { "Content-Type": "application/json" };
-  return { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json"
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
 }
 
 export async function getFavorites() {
@@ -13,7 +18,7 @@ export async function getFavorites() {
   return res.json();
 }
 
-export async function addFavorite(song: { id: string; title: string; artist: string; album?: string; cover?: string }) {
+export async function addFavorite(song: { id: string; title: string; artist: string; album?: string; cover?: string; previewUrl?: string | null }) {
   const res = await fetch(`${API_BASE}`, {
     method: "POST",
     headers: authHeader(),

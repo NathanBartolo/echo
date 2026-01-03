@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+// ============================================
+// TEST BACKEND - Backend testing utility
+// ============================================
+
 const TestBackend = () => {
   const [data, setData] = useState("");
 

@@ -1,8 +1,12 @@
+// ============================================
+// ALBUM DETAIL PAGE - Album songs and info
+// ============================================
+
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../components/NavBar";
 import { getPlaylists, addSongToPlaylist } from "../api/playlists";
-import "../styles/albumDetail.css";
+import "../styles/detail.css";
 
 interface Song {
   trackId?: number | string;

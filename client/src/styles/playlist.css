@@ -1,4 +1,7 @@
-/* Playlist page styles */
+/* ============================================
+   PLAYLIST PAGE SECTION
+   ============================================ */
+
 .playlist-page {
   background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
   min-height: calc(100vh - 160px);

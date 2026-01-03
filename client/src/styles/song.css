@@ -1,3 +1,11 @@
+/* ============================================
+   SONG PAGES SECTION (Search & Details)
+   ============================================ */
+
+/* ============================================
+   SONG SEARCH CONTAINER
+   ============================================ */
+
 .song-search-container {
   padding: 40px 20px 60px;
   background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
@@ -531,9 +539,149 @@
   margin: 0;
 }
 
+/* ============================================
+   SONG PAGE DETAIL
+   ============================================ */
+
+.song-page {
+  background-color: #f6f4f0;
+  min-height: 100vh;
+  font-family: "Alegreya", serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Song layout */
+.song-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15rem;
+  padding: 4rem 6rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Album cover */
+.album-cover img {
+  height: 350px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.album-cover {
+  width: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Song info */
+.song-info {
+  max-width: 600px;
+}
+
+.song-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.song-info h2 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 0.3rem;
+}
+
+.song-info p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.song-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.audio-player {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+/* Improved button styling */
+button {
+  border-radius: 25px;
+  border: none;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #1a1a1a;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #3d3d3d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 44, 44, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Playlist controls */
+.playlist-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Improved select styling */
+select {
+  padding: 10px 16px;
+  border-radius: 25px;
+  border: 2px solid #e0e0e0;
+  font-size: 1rem;
+  cursor: pointer;
+  background: white;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  border-color: #d4a574;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+}
+
+.song-desc {
+  margin-top: 1.5rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.playlist-msg {
+  font-size: 0.9rem;
+  color: #d4a574;
+  font-weight: 500;
+}
+
 /* Responsive */
 /* Tablet */
 @media (max-width: 1024px) {
+  .song-search-container {
+    padding: 30px 20px 50px;
+  }
+
   .discover-header h1 {
     font-size: 2.2rem;
   }
@@ -558,6 +706,23 @@
   .song-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 18px;
+  }
+
+  .song-content {
+    gap: 8rem;
+    padding: 3rem 4rem;
+  }
+
+  .album-cover img {
+    height: 300px;
+  }
+
+  .song-info h1 {
+    font-size: 2.2rem;
+  }
+
+  .song-info h2 {
+    font-size: 1.4rem;
   }
 }
 
@@ -601,5 +766,73 @@
 
   .search-bar-wrapper {
     border-radius: 30px;
+  }
+
+  .song-content {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    align-items: center;
+  }
+
+  .album-cover {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .album-cover img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-height: 280px;
+  }
+
+  .song-info {
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .song-info h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .song-info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .song-info p {
+    font-size: 1rem;
+  }
+
+  .audio-player {
+    margin-top: 1.2rem;
+  }
+
+  .playlist-controls {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  select {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .song-desc {
+    font-size: 0.95rem;
+    text-align: left;
+    padding: 0 0.5rem;
   }
 }

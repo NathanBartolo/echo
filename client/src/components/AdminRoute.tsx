@@ -1,6 +1,11 @@
-import React, { useContext } from "react";
+import type { JSX } from "react";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+
+// ============================================
+// ADMIN ROUTE - Authorization guard
+// ============================================
 
 const AdminRoute = ({ children }: { children: JSX.Element }) => {
   const { token, user } = useContext(AuthContext);

@@ -1,3 +1,7 @@
+// ============================================
+// LOGIN PAGE - User login/authentication
+// ============================================
+
 import React, { useState, useContext } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { login as apiLogin } from "../api/auth";

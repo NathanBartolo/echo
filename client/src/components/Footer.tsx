@@ -1,5 +1,9 @@
 import "./../styles/footer.css";
 
+// ============================================
+// FOOTER - Site footer with navigation
+// ============================================
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -33,11 +37,11 @@ const Footer = () => {
           </div>
 
           <div className="footer-section">
-            <h4>Legal</h4>
+            <h4>Follow</h4>
             <div className="footer-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Cookie Policy</a>
+              <a href="https://www.facebook.com/dope1512/" target="_blank" rel="noopener noreferrer">Facebook</a>
+              <a href="https://www.instagram.com/tuneechiiii/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://github.com/NathanBartolo" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
         </div>

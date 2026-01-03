@@ -1,10 +1,14 @@
+// ============================================
+// PLAYLIST DETAIL PAGE - Playlist songs and management
+// ============================================
+
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
 import { getPlaylist, removeSongFromPlaylist, updatePlaylistDescription, addSongToPlaylist } from "../api/playlists";
 import { removeFavorite } from "../api/favorites";
-import "../styles/playlistDetail.css";
+import "../styles/detail.css";
 
 export default function PlaylistDetail() {
   const { id } = useParams();
@@ -72,7 +76,7 @@ export default function PlaylistDetail() {
     };
   }, []);
 
-  const playSongPreview = (previewUrl: string) => {
+  const playSongPreview = (previewUrl: string | null | undefined) => {
     if (!previewUrl) return;
     if (currentAudio) {
       currentAudio.pause();

@@ -1,6 +1,10 @@
+// ============================================
+// SONG SEARCH PAGE - Discover and filter songs
+// ============================================
+
 import { useEffect, useState } from "react";
 import "../styles/navbar.css";
-import "./../styles/songSearch.css";
+import "./../styles/song.css";
 import Navbar from "../components/NavBar";
 import HeartButton from "../components/HeartButton";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +17,7 @@ interface Song {
   cover: string;
   previewUrl?: string | null;
   year?: string;
+  trackTimeMillis?: number | null;
 }
 
 interface Album {
@@ -32,8 +37,8 @@ const SongSearchPage = () => {
   const [allSongs, setAllSongs] = useState<Song[]>([]);
   const [query, setQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<string>("");
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedYear, setSelectedYear] = useState<string>("");
+  const [selectedDuration, setSelectedDuration] = useState<"" | "short" | "medium" | "long">("");
   const [filterType, setFilterType] = useState<"all" | "songs" | "albums">("all");
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
 
@@ -162,26 +167,6 @@ const SongSearchPage = () => {
       );
     }
 
-    if (selectedCountry) {
-      // Simple country mapping based on artist origin
-      const countryMap: { [key: string]: string[] } = {
-        "USA": ["Taylor Swift", "Billie Eilish", "Ariana Grande", "Drake", "Kendrick Lamar", "Post Malone"],
-        "UK": ["Ed Sheeran", "Harry Styles"],
-        "Canada": ["Drake"],
-        "Australia": ["Dua Lipa"],
-        "Asia": [],
-        "France": [],
-        "Arab": [],
-        "Spain": [],
-      };
-      const artistsInCountry = countryMap[selectedCountry] || [];
-      filtered = filtered.filter((s) =>
-        artistsInCountry.some((artist) =>
-          s.artist.toLowerCase().includes(artist.toLowerCase())
-        )
-      );
-    }
-
     if (selectedYear) {
       filtered = filtered.filter((s) => {
         if (selectedYear.endsWith("s")) {
@@ -195,6 +180,19 @@ const SongSearchPage = () => {
           // Handle specific year filtering
           return s.year === selectedYear;
         }
+      });
+    }
+
+    if (selectedDuration) {
+      filtered = filtered.filter((s) => {
+        const dur = s.trackTimeMillis || 0;
+        if (!dur) return false;
+        const shortMax = 150_000; // 2:30
+        const mediumMax = 240_000; // 4:00
+        if (selectedDuration === "short") return dur < shortMax;
+        if (selectedDuration === "medium") return dur >= shortMax && dur <= mediumMax;
+        if (selectedDuration === "long") return dur > mediumMax;
+        return true;
       });
     }
 
@@ -310,8 +308,7 @@ const SongSearchPage = () => {
   const uniqueYears = [...new Set(allSongs.map((s) => s.year))].filter(Boolean).sort().reverse();
 
   const genres = ["Pop", "Hip-Hop", "R&B", "Electronic", "Alternative"];
-  const countries = ["USA", "UK", "Canada", "Australia", "Asia", "France", "Arab", "Spain"];
-  const decades = ["2020s", "2010s", "2000s", "1990s", "1980s", "1970s", "1960s", "1950s"];
+  const decades = ["2020s", "2010s", "2000s"];
 
   return (
     <>
@@ -432,7 +429,7 @@ const SongSearchPage = () => {
                     className={`filter-btn ${selectedGenre === genre ? "active" : ""}`}
                     onClick={() => {
                       setSelectedGenre(genre);
-                      setSelectedCountry("");
+                      setSelectedDuration("");
                       setSelectedYear("");
                       setQuery("");
                     }}
@@ -444,25 +441,32 @@ const SongSearchPage = () => {
             </div>
 
             <div className="filter-group">
-              <label>By Country</label>
+              <label>By Duration</label>
               <div className="filter-buttons">
                 <button
-                  className={`filter-btn ${selectedCountry === "" ? "active" : ""}`}
-                  onClick={() => {
-                    setSelectedCountry("");
-                  }}
+                  className={`filter-btn ${selectedDuration === "" ? "active" : ""}`}
+                  onClick={() => setSelectedDuration("")}
                 >
-                  All Countries
+                  All Durations
                 </button>
-                {countries.map((country) => (
-                  <button
-                    key={country}
-                    className={`filter-btn ${selectedCountry === country ? "active" : ""}`}
-                    onClick={() => setSelectedCountry(country)}
-                  >
-                    {country}
-                  </button>
-                ))}
+                <button
+                  className={`filter-btn ${selectedDuration === "short" ? "active" : ""}`}
+                  onClick={() => setSelectedDuration("short")}
+                >
+                  Short (&lt; 2:30)
+                </button>
+                <button
+                  className={`filter-btn ${selectedDuration === "medium" ? "active" : ""}`}
+                  onClick={() => setSelectedDuration("medium")}
+                >
+                  Medium (2:30–4:00)
+                </button>
+                <button
+                  className={`filter-btn ${selectedDuration === "long" ? "active" : ""}`}
+                  onClick={() => setSelectedDuration("long")}
+                >
+                  Long (&gt; 4:00)
+                </button>
               </div>
             </div>
 
@@ -536,6 +540,7 @@ const SongSearchPage = () => {
                           artist: (result.data as Song).artist,
                           album: (result.data as Song).album,
                           cover: (result.data as Song).cover,
+                          previewUrl: (result.data as Song).previewUrl,
                         }}
                         size="medium"
                       />

@@ -1,3 +1,7 @@
+// ============================================
+// SIGNUP PAGE - User registration
+// ============================================
+
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { register as apiRegister } from "../api/auth";

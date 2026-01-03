@@ -1,3 +1,7 @@
+// ============================================
+// NAV BAR - Top navigation bar
+// ============================================
+
 import "./../styles/navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";

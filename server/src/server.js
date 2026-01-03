@@ -19,7 +19,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({ origin: "http://localhost:5173" }));
-app.use(express.json());
+// Allow larger JSON bodies so base64 playlist cover uploads are not rejected (413)
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(passport.initialize());
 
 // Root route
@@ -60,6 +62,8 @@ app.get("/api/search", async (req, res) => {
       album: s.collectionName,
       cover: s.artworkUrl100?.replace("100x100", "300x300") || "",
       previewUrl: s.previewUrl || null, // 30s preview if available
+      year: s.releaseDate ? new Date(s.releaseDate).getFullYear().toString() : "",
+      trackTimeMillis: s.trackTimeMillis || null,
     }));
 
     res.json(suggestions);

@@ -1,8 +1,11 @@
+// ============================================
+// SONG PAGE - Song details and controls
+// ============================================
+
 import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
-import "../styles/songpage.css";
+import "../styles/song.css";
 import NavBar from "../components/NavBar";
 import HeartButton from "../components/HeartButton";
 import { getPlaylists, addSongToPlaylist } from "../api/playlists";
@@ -119,6 +122,7 @@ const SongPage = () => {
                 artist: song.artist,
                 album: song.album,
                 cover: song.cover,
+                previewUrl: song.previewUrl,
               }}
               size="large"
             />
@@ -147,8 +151,8 @@ const SongPage = () => {
                 setTimeout(() => setPlaylistMsg(null), 2500);
               }}
             >Add</button>
+            {playlistMsg && <div className="playlist-msg">{playlistMsg}</div>}
           </div>
-          {playlistMsg && <div style={{ marginTop: 8, textAlign: 'center' }}>{playlistMsg}</div>}
           
           <p className="song-desc">
             This track is part of the album <strong>{song.album}</strong> by{" "}

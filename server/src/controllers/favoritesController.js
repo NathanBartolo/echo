@@ -8,7 +8,32 @@ const getFavorites = async (req, res) => {
     const user = await User.findById(req.user._id).select("favorites");
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    res.json(user.favorites || []);
+    let favorites = user.favorites || [];
+    
+    // Enrich favorites with missing previewUrl from iTunes if needed
+    const enrichedFavorites = await Promise.all(
+      favorites.map(async (fav) => {
+        // If previewUrl is missing, try to fetch it from iTunes
+        if (!fav.previewUrl) {
+          try {
+            const searchResponse = await fetch(
+              `https://itunes.apple.com/search?term=${encodeURIComponent(fav.title)}&entity=song&limit=1`
+            );
+            const searchData = await searchResponse.json();
+            const itunesSong = searchData.results?.[0];
+            
+            if (itunesSong && itunesSong.previewUrl) {
+              fav.previewUrl = itunesSong.previewUrl;
+            }
+          } catch (err) {
+            console.error("Error fetching preview URL from iTunes:", err);
+          }
+        }
+        return fav;
+      })
+    );
+    
+    res.json(enrichedFavorites);
   } catch (err) {
     console.error("Get favorites error:", err);
     res.status(500).json({ error: "Server error" });
@@ -20,7 +45,7 @@ const addFavorite = async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not authorized" });
     
-    const { id, title, artist, album, cover } = req.body;
+    const { id, title, artist, album, cover, previewUrl } = req.body;
     if (!id || !title || !artist) {
       return res.status(400).json({ error: "Song data required" });
     }
@@ -34,7 +59,7 @@ const addFavorite = async (req, res) => {
       return res.status(400).json({ error: "Song already in favorites" });
     }
 
-    user.favorites.push({ id, title, artist, album, cover });
+    user.favorites.push({ id, title, artist, album, cover, previewUrl });
     await user.save();
 
     res.json(user.favorites);

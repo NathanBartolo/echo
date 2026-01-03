@@ -1,6 +1,9 @@
+// ============================================
+// ABOUT PAGE - Information about the platform
+// ============================================
+
 import NavBar from "../components/NavBar";
 import "../styles/about.css";
-
 const AboutPage = () => {
   return (
     <div className="about-page">

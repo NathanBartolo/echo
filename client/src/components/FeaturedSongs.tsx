@@ -1,3 +1,7 @@
+// ============================================
+// FEATURED SONGS - Display featured songs grid
+// ============================================
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeartButton from "./HeartButton";
@@ -9,6 +13,7 @@ interface Song {
   artist: string;
   album: string;
   cover: string;
+  previewUrl?: string | null;
 }
 
 const FeaturedSongs = () => {
@@ -64,6 +69,7 @@ const FeaturedSongs = () => {
                       artist: song.artist,
                       album: song.album,
                       cover: song.cover,
+                      previewUrl: song.previewUrl,
                     }}
                     size="medium"
                   />

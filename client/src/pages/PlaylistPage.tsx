@@ -1,3 +1,7 @@
+// ============================================
+// PLAYLIST PAGE - User playlists management
+// ============================================
+
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPlaylists, createPlaylist, deletePlaylist, updatePlaylistCover } from "../api/playlists";
@@ -57,6 +61,13 @@ export default function PlaylistPage() {
     const file = e.target.files?.[0];
     if (!file || !selectedPlaylistId) return;
 
+    // Avoid sending payloads larger than our backend limit
+    const maxBytes = 9 * 1024 * 1024; // 9MB buffer under 10MB server limit
+    if (file.size > maxBytes) {
+      alert("Cover image is too large. Please choose an image under 9MB.");
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = async (event) => {
       const imageData = event.target?.result as string;
@@ -73,6 +84,7 @@ export default function PlaylistPage() {
         fetchList();
       } catch (err) {
         console.error("Failed to save cover image:", err);
+        alert("Could not save cover image. Please try a smaller file or retry.");
       }
     };
     reader.readAsDataURL(file);
@@ -171,7 +183,7 @@ export default function PlaylistPage() {
                 </div>
 
                 {/* User Created Playlists */}
-                {playlists.map((p, index) => (
+                {playlists.map((p) => (
                   <div key={p._id} className="playlist-item">
                     <div className="playlist-cover" onClick={() => handleCoverClick(p._id)}>
                       {playlistCovers[p._id] ? (

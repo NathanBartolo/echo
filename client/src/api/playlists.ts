@@ -2,8 +2,13 @@ const API_BASE = "http://localhost:5000/api/playlists";
 
 function authHeader() {
   const token = localStorage.getItem("authToken");
-  if (!token) return { "Content-Type": "application/json" };
-  return { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json"
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
 }
 
 export async function createPlaylist(name: string, description = "", userId = "demo-user") {
@@ -54,7 +59,13 @@ export async function updatePlaylistCover(id: string, coverImage: string) {
     headers: authHeader(),
     body: JSON.stringify({ coverImage }),
   });
-  return res.json();
+
+  const data = await res.json();
+  if (!res.ok) {
+    const reason = (data && data.error) || res.statusText || "Failed to update cover";
+    throw new Error(reason);
+  }
+  return data;
 }
 
 export async function updatePlaylistDescription(id: string, description: string) {

@@ -1,4 +1,8 @@
-/* --- General header styling --- */
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+
+/* General header styling */
 header {
   background: linear-gradient(135deg, #f6f4f0 0%, #ede9e3 100%);
   padding: 0px 40px;

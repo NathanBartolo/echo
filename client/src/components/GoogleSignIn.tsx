@@ -1,4 +1,6 @@
-import React from "react";
+// ============================================
+// GOOGLE SIGN IN - OAuth authentication button
+// ============================================
 
 const GoogleSignIn = () => {
   const handleGoogleLogin = () => {

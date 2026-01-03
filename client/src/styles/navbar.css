@@ -1,4 +1,7 @@
-/* --- Global navbar styles for NavBar component --- */
+/* ============================================
+   NAVBAR SECTION
+   ============================================ */
+
 .main-navbar {
   display: grid;
   grid-template-columns: 200px 1fr 200px;
@@ -56,7 +59,10 @@
   transform: translateY(-1px);
 }
 
-/* --- Auth section styling --- */
+/* ============================================
+   AUTH SECTION
+   ============================================ */
+
 .nav-auth {
   display: flex;
   align-items: center;

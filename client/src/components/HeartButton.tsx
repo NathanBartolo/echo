@@ -9,6 +9,7 @@ type HeartButtonProps = {
     artist: string;
     album?: string;
     cover?: string;
+    previewUrl?: string | null;
   };
   size?: "small" | "medium" | "large";
 };
@@ -37,6 +38,7 @@ export default function HeartButton({ song, size = "medium" }: HeartButtonProps)
           artist: song.artist,
           album: song.album,
           cover: song.cover,
+          previewUrl: song.previewUrl,
         });
         if (!result.error) {
           setFavorites(result);

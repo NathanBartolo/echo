@@ -1,4 +1,7 @@
-// src/components/SearchBar.tsx
+// ============================================
+// SEARCH BAR - Global search with autocomplete
+// ============================================
+
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/searchbar.css";

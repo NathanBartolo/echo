@@ -1,3 +1,7 @@
+// ============================================
+// HEADER - Hero header with animated background
+// ============================================
+
 import "./../styles/header.css";
 import NavBar from "../components/NavBar";
 import { useEffect, useRef } from "react";
@@ -151,7 +155,7 @@ const Header = () => {
         <h2>Where Music Meets Memory</h2>
         <p>
           Create playlists that tell your story. Whether it's that perfect road trip mix, 
-          late-night study vibes, or songs that bring back memories — Echo helps you 
+          late-night study vibes, or songs that bring back memories — Ech o helps you 
           organize your soundtrack to life.
         </p>
         <div className="cta-container">

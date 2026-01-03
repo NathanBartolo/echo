@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "../styles/createPlaylistModal.css";
 
+// ============================================
+// CREATE PLAYLIST MODAL - Modal for playlist creation
+// ============================================
+
 interface CreatePlaylistModalProps {
   isOpen: boolean;
   onClose: () => void;
