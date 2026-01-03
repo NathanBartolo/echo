@@ -10,9 +10,10 @@ import NavBar from "../components/NavBar";
 import "../styles/auth.css";
 
 const Dashboard = () => {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [playlists, setPlaylists] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -21,6 +22,8 @@ const Dashboard = () => {
         setPlaylists(data || []);
       } catch (err) {
         console.error("Error fetching playlists:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPlaylists();
