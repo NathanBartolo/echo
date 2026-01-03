@@ -99,8 +99,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return favorites.some(fav => fav.id === songId);
   };
 
-  if (loading) return <div>Loading...</div>;
-
   return (
     <AuthContext.Provider value={{ user, token, favorites, login, logout, updateUser, setFavorites, isFavorite }}>
       {children}
