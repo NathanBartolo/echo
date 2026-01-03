@@ -2,8 +2,13 @@ const API_BASE = `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/ap
 
 function authHeader() {
   const token = localStorage.getItem("authToken");
-  if (!token) return { "Content-Type": "application/json" };
-  return { "Content-Type": "application/json", Authorization: `Bearer ${token}` };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json"
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return headers;
 }
 
 export async function register(name: string, email: string, password: string) {
