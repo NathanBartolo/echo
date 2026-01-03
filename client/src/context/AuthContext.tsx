@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return rawToken || null;
   });
   const [favorites, setFavorites] = useState<Song[]>([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (token) localStorage.setItem("authToken", token);
