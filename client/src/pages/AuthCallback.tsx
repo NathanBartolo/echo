@@ -2,13 +2,13 @@
 // AUTH CALLBACK - OAuth callback handler
 // ============================================
 
-import React, { useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const AuthCallback = () => {
   const [searchParams] = useSearchParams();
-  const { login, user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [hasNavigated, setHasNavigated] = React.useState(false);
 

@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import type { ReactNode } from "react";
 import { getFavorites } from "../api/favorites";
 
 type Song = {
@@ -51,7 +52,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return rawToken || null;
   });
   const [favorites, setFavorites] = useState<Song[]>([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (token) localStorage.setItem("authToken", token);

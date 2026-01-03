@@ -2,7 +2,7 @@
 // ADMIN PANEL - User and system management
 // ============================================
 
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { listUsers, updateUserRole, deleteUser, getStats } from "../api/admin";
 import NavBar from "../components/NavBar";

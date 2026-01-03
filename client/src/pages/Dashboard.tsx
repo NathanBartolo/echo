@@ -2,7 +2,7 @@
 // DASHBOARD - User profile and playlists hub
 // ============================================
 
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getPlaylists } from "../api/playlists";
@@ -10,10 +10,9 @@ import NavBar from "../components/NavBar";
 import "../styles/auth.css";
 
 const Dashboard = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [playlists, setPlaylists] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -22,8 +21,6 @@ const Dashboard = () => {
         setPlaylists(data || []);
       } catch (err) {
         console.error("Error fetching playlists:", err);
-      } finally {
-        setLoading(false);
       }
     };
     fetchPlaylists();
