@@ -12,7 +12,11 @@ router.get(
 // Google OAuth callback
 router.get(
   "/google/callback",
-  passport.authenticate("google", { session: false, failureRedirect: "/login" }),
+  passport.authenticate("google", {
+    session: false,
+    // If Google auth fails, send the user back to the frontend login with an error message
+    failureRedirect: `${process.env.FRONTEND_URL || "http://localhost:5173"}/login?error=Google%20login%20failed`,
+  }),
   (req, res) => {
     try {
       const user = req.user;
