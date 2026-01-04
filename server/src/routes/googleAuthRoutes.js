@@ -21,7 +21,7 @@ router.get(
       });
 
       // Redirect to frontend with token and user info
-      // Format: http://localhost:5173/auth/callback?token=<jwt>&user=<json>
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
       const userJson = JSON.stringify({
         id: user._id,
         name: user.name,
@@ -31,11 +31,12 @@ router.get(
       });
 
       res.redirect(
-        `http://localhost:5173/auth/callback?token=${token}&user=${encodeURIComponent(userJson)}`
+        `${frontendUrl}/auth/callback?token=${token}&user=${encodeURIComponent(userJson)}`
       );
     } catch (err) {
       console.error("Google callback error:", err);
-      res.redirect(`http://localhost:5173/login?error=${encodeURIComponent(err.message)}`);
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+      res.redirect(`${frontendUrl}/login?error=${encodeURIComponent(err.message)}`);
     }
   }
 );

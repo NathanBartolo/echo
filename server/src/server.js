@@ -18,7 +18,7 @@ const passport = require("./config/passport");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
 // Allow larger JSON bodies so base64 playlist cover uploads are not rejected (413)
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
