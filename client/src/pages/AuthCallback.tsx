@@ -11,32 +11,41 @@ const AuthCallback = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [hasNavigated, setHasNavigated] = useState(false);
+  const [status, setStatus] = useState("Completing sign-in...");
 
   useEffect(() => {
     if (hasNavigated) return;
     const token = searchParams.get("token");
     const userJson = searchParams.get("user");
 
-    if (token && userJson) {
+    if (token) {
       try {
-        const userObj = JSON.parse(decodeURIComponent(userJson));
-        login(token, userObj);
+        let parsedUser = null;
+        if (userJson) {
+          parsedUser = JSON.parse(decodeURIComponent(userJson));
+        }
+        login(token, parsedUser);
+        setStatus("Redirecting...");
+        setHasNavigated(true);
         navigate("/");
-        setHasNavigated(true);
+        return;
       } catch (err) {
-        console.error("Auth callback error:", err);
-        navigate("/login?error=Invalid auth response");
+        console.error("Auth callback parse error:", err);
+        setStatus("Invalid auth response. Returning to login...");
         setHasNavigated(true);
+        navigate("/login?error=Invalid%20auth%20response");
+        return;
       }
-    } else {
-      const error = searchParams.get("error");
-      navigate(`/login?error=${error || "Auth failed"}`);
-      setHasNavigated(true);
     }
+
+    const error = searchParams.get("error");
+    setStatus("Auth failed. Returning to login...");
+    setHasNavigated(true);
+    navigate(`/login?error=${error || "Auth failed"}`);
     // eslint-disable-next-line
   }, [searchParams, login, navigate, hasNavigated]);
 
-  return null;
+  return <div style={{ padding: "2rem", textAlign: "center" }}>{status}</div>;
 };
 
 export default AuthCallback;
