@@ -1,0 +1,9 @@
+services:
+  - type: static
+    name: echo-app
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    routes:
+      - path: /*
+        method: GET
+        destination: /index.html
