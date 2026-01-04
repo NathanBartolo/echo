@@ -39,7 +39,7 @@ const SongPage = () => {
     const needsFetch = !song || !song.previewUrl || !song.cover || !song.album;
     console.debug("SongPage: needsFetch=", needsFetch, "current song:", song, "id:", id);
     if (needsFetch && id) {
-      fetch(`http://localhost:5000/api/song/${id}`)
+      fetch(`${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/song/${id}`)
         .then((res) => res.json())
         .then((data) => setSong(data))
         .catch((err) => console.error(err));

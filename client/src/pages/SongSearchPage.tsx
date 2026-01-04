@@ -72,7 +72,7 @@ const SongSearchPage = () => {
 
         for (const artist of modernArtists) {
           const res = await fetch(
-            `http://localhost:5000/api/search?q=${encodeURIComponent(artist)}&limit=15`
+            `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(artist)}&limit=15`
           );
           const data = await res.json();
           const list = Array.isArray(data) ? data : [data];
@@ -256,7 +256,7 @@ const SongSearchPage = () => {
     }
     try {
       const res = await fetch(
-        `http://localhost:5000/api/search?q=${encodeURIComponent(query)}&limit=30`
+        `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(query)}&limit=30`
       );
       const data = await res.json();
       const songList = Array.isArray(data) ? data : [data];

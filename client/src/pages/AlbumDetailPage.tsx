@@ -113,7 +113,7 @@ const AlbumDetailPage = () => {
           const decodedArtist = decodeURIComponent(artistName || "");
           
           const res = await fetch(
-            `http://localhost:5000/api/search?q=${encodeURIComponent(`${decodedAlbum} ${decodedArtist}`)}&limit=50`
+            `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(`${decodedAlbum} ${decodedArtist}`)}&limit=50`
           );
           const data = await res.json();
           const songList = Array.isArray(data) ? data : [data];

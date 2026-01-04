@@ -50,7 +50,7 @@ const SearchBar: React.FC = () => {
     timerRef.current = window.setTimeout(async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/search?q=${encodeURIComponent(query)}&limit=5`
+          `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(query)}&limit=5`
         );
         const data = await res.json();
         setSuggestions(data || []);

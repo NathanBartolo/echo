@@ -8,7 +8,7 @@ const TestBackend = () => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/test")
+    fetch(`${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/test`)
       .then((res) => res.json())
       .then((data) => setData(data.message))
       .catch((err) => console.error(err));

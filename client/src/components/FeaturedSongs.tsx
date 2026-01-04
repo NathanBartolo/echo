@@ -24,7 +24,7 @@ const FeaturedSongs = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/featured");
+        const res = await fetch(`${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/featured`);
         const data = await res.json();
         setFeatured(data);
       } catch (err) {

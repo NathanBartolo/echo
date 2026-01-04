@@ -138,7 +138,7 @@ export default function PlaylistDetail() {
     }
     setIsSearching(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/search?q=${encodeURIComponent(searchQuery)}&limit=10`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/search?q=${encodeURIComponent(searchQuery)}&limit=10`);
       const data = await res.json();
       setSearchResults(data);
     } catch (err) {
