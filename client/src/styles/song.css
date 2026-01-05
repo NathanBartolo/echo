@@ -399,24 +399,7 @@
 }
 
 .song-card:hover .song-card-overlay {
-  opacity: 1;
-}
-
-.play-icon {
-  font-size: 2.5rem;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  line-height: 1;
-  font-weight: bold;
-}
-
-.song-card:hover .play-icon {
-  background: white;
-  color: #1a1a1a;
-  transform: scale(1.1);
+  opacity: 0;
 }
 
 .song-card-info {

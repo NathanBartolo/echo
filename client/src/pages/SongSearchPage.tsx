@@ -529,9 +529,6 @@ const SongSearchPage = () => {
                 >
                   <div className="song-card-image">
                     <img src={(result.data as Song).cover} alt={(result.data as Song).title} />
-                    <div className="song-card-overlay">
-                      <span className="play-icon">▶</span>
-                    </div>
                     <div className="card-heart">
                       <HeartButton
                         song={{
@@ -566,9 +563,6 @@ const SongSearchPage = () => {
                   <div className="album-card-image">
                     <img src={(result.data as Album).cover} alt={(result.data as Album).name} />
                     <div className="album-badge">Album</div>
-                    <div className="song-card-overlay">
-                      <span className="play-icon">▶</span>
-                    </div>
                   </div>
                   <div className="album-card-info">
                     <h3>{(result.data as Album).name}</h3>
