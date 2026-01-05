@@ -76,3 +76,12 @@ export async function updatePlaylistDescription(id: string, description: string)
   });
   return res.json();
 }
+
+export async function reorderPlaylistSongs(id: string, songIds: string[]) {
+  const res = await fetch(`${API_BASE}/${id}/reorder`, {
+    method: "PUT",
+    headers: authHeader(),
+    body: JSON.stringify({ songIds }),
+  });
+  return res.json();
+}

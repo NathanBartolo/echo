@@ -24,4 +24,7 @@ router.post("/:id/song", protect, controller.addSongToPlaylist);
 // Remove song (must belong to user)
 router.delete("/:id/song/:songId", protect, controller.removeSongFromPlaylist);
 
+// Reorder songs in playlist (must belong to user)
+router.put("/:id/reorder", protect, controller.reorderSongs);
+
 module.exports = router;
