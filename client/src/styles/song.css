@@ -413,6 +413,8 @@
   background: rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   transition: all 0.3s ease;
+  line-height: 1;
+  font-weight: bold;
 }
 
 .song-card:hover .play-icon {
