@@ -1304,3 +1304,7 @@
   border-top: 3px solid #d4a574;
   transform: translateY(2px);
 }
+
+.song-list-item.draggable {
+  cursor: move;
+}

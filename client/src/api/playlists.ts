@@ -83,5 +83,11 @@ export async function reorderPlaylistSongs(id: string, songIds: string[]) {
     headers: authHeader(),
     body: JSON.stringify({ songIds }),
   });
-  return res.json();
+  
+  const data = await res.json();
+  if (!res.ok) {
+    const reason = (data && data.error) || res.statusText || "Failed to reorder songs";
+    throw new Error(reason);
+  }
+  return data;
 }

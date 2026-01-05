@@ -213,7 +213,7 @@ export default function PlaylistDetail() {
       const songIds = newSongs.map((song: any) => song._id);
       await reorderPlaylistSongs(id, songIds);
     } catch (err) {
-      console.error("Failed to reorder songs:", err);
+      console.error("Failed to reorder songs in playlist", id, ":", err);
       // Revert on error
       const data = await getPlaylist(id);
       setPlaylist(data);
@@ -415,7 +415,7 @@ export default function PlaylistDetail() {
               {playlist.songs.map((song: any, index: number) => (
                 <div
                   key={song._id}
-                  className={`song-list-item ${draggedIndex === index ? 'dragging' : ''} ${dragOverIndex === index ? 'drag-over' : ''}`}
+                  className={`song-list-item ${draggedIndex === index ? 'dragging' : ''} ${dragOverIndex === index ? 'drag-over' : ''} ${!isFavoritesPage ? 'draggable' : ''}`}
                   draggable={!isFavoritesPage}
                   onDragStart={(e) => handleDragStart(e, index)}
                   onDragOver={(e) => handleDragOver(e, index)}
@@ -424,7 +424,6 @@ export default function PlaylistDetail() {
                   onDragEnd={handleDragEnd}
                   onMouseEnter={() => playSongPreview(song.previewUrl)}
                   onMouseLeave={stopSongPreview}
-                  style={!isFavoritesPage ? { cursor: 'move' } : {}}
                 >
                   {!isFavoritesPage && (
                     <div className="drag-handle" title="Drag to reorder">
