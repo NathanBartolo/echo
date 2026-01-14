@@ -721,6 +721,10 @@ select:focus {
     padding: 20px 15px 40px;
   }
 
+  .back-btn {
+    padding: 8px 60px;
+  }
+
   .discover-header h1 {
     font-size: 1.8rem;
   }
