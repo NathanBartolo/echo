@@ -704,6 +704,8 @@
   .playlist-details {
     text-align: center;
   }
+
+  .playlist-details h2 {
     font-size: 1.5rem;
   }
 
