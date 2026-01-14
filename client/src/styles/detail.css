@@ -121,9 +121,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: none;
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
   outline: none;
   color: #000;
+  display: block;
+  max-width: 1400px;
+  width: 100%;
+  text-align: left;
 }
 
 .back-btn:hover {
