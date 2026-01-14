@@ -1,6 +1,9 @@
+// Handles user's favorite songs - get, add, and remove operations
+
 const User = require("../models/userModel");
 
-// Get user's favorites
+// Get all favorite songs for authenticated user
+// Enriches favorites with preview URLs from iTunes if missing
 const getFavorites = async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not authorized" });
@@ -40,7 +43,7 @@ const getFavorites = async (req, res) => {
   }
 };
 
-// Add song to favorites
+// Add song to user's favorites list
 const addFavorite = async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not authorized" });
@@ -53,7 +56,7 @@ const addFavorite = async (req, res) => {
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    // Check if already favorited
+    // Check if already favorited to prevent duplicates
     const alreadyFavorited = user.favorites.some(fav => fav.id === id);
     if (alreadyFavorited) {
       return res.status(400).json({ error: "Song already in favorites" });
@@ -69,7 +72,7 @@ const addFavorite = async (req, res) => {
   }
 };
 
-// Remove song from favorites
+// Remove song from user's favorites
 const removeFavorite = async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({ error: "Not authorized" });
@@ -80,6 +83,7 @@ const removeFavorite = async (req, res) => {
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).json({ error: "User not found" });
 
+    // Filter out the favorite by ID
     user.favorites = user.favorites.filter(fav => fav.id !== songId);
     await user.save();
 

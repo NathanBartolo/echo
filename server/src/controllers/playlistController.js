@@ -1,6 +1,8 @@
+// Handles all playlist operations: create, read, update, delete, and song management
+
 const Playlist = require("../models/Playlist");
 
-// Create a playlist for a user
+// Create a new playlist for authenticated user
 exports.createPlaylist = async (req, res) => {
   try {
     const userId = (req.user && req.user._id) || req.body.userId || "demo-user";
@@ -9,6 +11,7 @@ exports.createPlaylist = async (req, res) => {
 
     if (!name) return res.status(400).json({ message: "Playlist name required" });
 
+    // Initialize empty playlist
     const playlist = new Playlist({ userId, name, description, songs: [] });
     await playlist.save();
     res.status(201).json(playlist);
@@ -18,7 +21,7 @@ exports.createPlaylist = async (req, res) => {
   }
 };
 
-// Get all playlists for a user 
+// Get all playlists for a user, sorted by newest first
 exports.getPlaylistsForUser = async (req, res) => {
   try {
     const userId = (req.user && req.user._id) || req.params.userId || "demo-user";
@@ -30,13 +33,13 @@ exports.getPlaylistsForUser = async (req, res) => {
   }
 };
 
-// Get single playlist by id function
+// Get single playlist by ID with ownership check
 exports.getPlaylistById = async (req, res) => {
   try {
     const playlist = await Playlist.findById(req.params.id);
     if (!playlist) return res.status(404).json({ message: "Playlist not found" });
 
-    // enforce ownership unless admin
+    // Enforce ownership unless user is admin
     if (req.user && req.user.role !== "admin") {
       if (playlist.userId.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: "Forbidden" });
@@ -50,13 +53,14 @@ exports.getPlaylistById = async (req, res) => {
   }
 };
 
-// Delete playlist function
+// Delete playlist with ownership verification
 exports.deletePlaylist = async (req, res) => {
   try {
     const id = req.params.id;
     const playlist = await Playlist.findById(id);
     if (!playlist) return res.status(404).json({ message: "Playlist not found" });
 
+    // Check authorization - owner or admin only
     if (req.user && req.user.role !== "admin") {
       if (playlist.userId.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: "Forbidden" });
@@ -71,7 +75,7 @@ exports.deletePlaylist = async (req, res) => {
   }
 };
 
-// Update playlist (cover image, name, description)
+// Update playlist details (cover image, name, description)
 exports.updatePlaylist = async (req, res) => {
   try {
     const id = req.params.id;
@@ -80,12 +84,14 @@ exports.updatePlaylist = async (req, res) => {
     const playlist = await Playlist.findById(id);
     if (!playlist) return res.status(404).json({ message: "Playlist not found" });
 
+    // Authorization check
     if (req.user && req.user.role !== "admin") {
       if (playlist.userId.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: "Forbidden" });
       }
     }
 
+    // Update only provided fields
     if (req.body.coverImage) playlist.coverImage = req.body.coverImage;
     if (req.body.name) playlist.name = req.body.name;
     if (req.body.description !== undefined) playlist.description = req.body.description;
@@ -109,12 +115,14 @@ exports.addSongToPlaylist = async (req, res) => {
     const playlist = await Playlist.findById(playlistId);
     if (!playlist) return res.status(404).json({ message: "Playlist not found" });
 
+    // Authorization check
     if (req.user && req.user.role !== "admin") {
       if (playlist.userId.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: "Forbidden" });
       }
     }
 
+    // Push song to playlist array
     playlist.songs.push(song);
     await playlist.save();
     res.json(playlist);
@@ -124,7 +132,7 @@ exports.addSongToPlaylist = async (req, res) => {
   }
 };
 
-// Remove song from playlist
+// Remove specific song from playlist
 exports.removeSongFromPlaylist = async (req, res) => {
   try {
     const playlistId = req.params.id;
@@ -133,12 +141,14 @@ exports.removeSongFromPlaylist = async (req, res) => {
     const playlist = await Playlist.findById(playlistId);
     if (!playlist) return res.status(404).json({ message: "Playlist not found" });
 
+    // Authorization check
     if (req.user && req.user.role !== "admin") {
       if (playlist.userId.toString() !== req.user._id.toString()) {
         return res.status(403).json({ message: "Forbidden" });
       }
     }
 
+    // Filter out the song to remove
     playlist.songs = playlist.songs.filter(s => s._id.toString() !== songId);
     await playlist.save();
     res.json(playlist);

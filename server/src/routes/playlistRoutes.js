@@ -1,3 +1,5 @@
+// Handles CRUD operations and song management within playlists
+
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/playlistController");
@@ -21,7 +23,7 @@ router.put("/:id", protect, controller.updatePlaylist);
 // Add song to playlist (must belong to user)
 router.post("/:id/song", protect, controller.addSongToPlaylist);
 
-// Remove song (must belong to user)
+// Remove song from playlist (must belong to user)
 router.delete("/:id/song/:songId", protect, controller.removeSongFromPlaylist);
 
 module.exports = router;

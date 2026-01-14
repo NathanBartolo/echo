@@ -1,3 +1,5 @@
+// Handles routing, middleware setup, iTunes API integration, and server initialization
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -18,16 +20,17 @@ const passport = require("./config/passport");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware setup
 app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
 // Allow larger JSON bodies so base64 playlist cover uploads are not rejected (413)
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(passport.initialize());
 
-// Root route
+// Root route - basic health check
 app.get("/", (req, res) => res.send("Echo API is running..."));
 
-// User routes
+// Mount all route handlers
 app.use("/api/users", userRoutes);
 // Auth routes (register, login, me)
 app.use("/api/auth", authRoutes);
@@ -38,11 +41,13 @@ app.use("/api/admin", adminRoutes);
 // Favorites routes
 app.use("/api/favorites", favoritesRoutes);
 
-// Test route
+// Test route - simple backend check
 app.get("/api/test", (req, res) => {
   res.json({ message: "Backend is working!" });
 });
 
+// Search endpoint - autocomplete suggestions from iTunes
+// Returns 5 results by default with track info for autocomplete UI
 app.get("/api/search", async (req, res) => {
   const query = req.query.q;
   const limit = parseInt(req.query.limit, 10) || 5;
@@ -54,7 +59,7 @@ app.get("/api/search", async (req, res) => {
     );
     const data = await response.json();
 
-    // Map to small objects for autocomplete
+    // Map to small objects for autocomplete - return only essential info
     const suggestions = (data.results || []).map((s) => ({
       trackId: s.trackId,
       title: s.trackName,
@@ -73,6 +78,8 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
+// Get full song details by iTunes track ID
+// Used when user clicks on a song to view full details page
 app.get("/api/song/:id", async (req, res) => {
   const id = req.params.id;
   if (!id) return res.status(400).json({ error: "Missing track id" });
@@ -85,6 +92,7 @@ app.get("/api/song/:id", async (req, res) => {
     if (!data.results || !data.results.length) return res.status(404).json({ error: "Song not found" });
 
     const s = data.results[0];
+    // Format full song data with larger artwork
     const song = {
       trackId: s.trackId,
       title: s.trackName,
@@ -104,6 +112,8 @@ app.get("/api/song/:id", async (req, res) => {
   }
 });
 
+// Featured songs endpoint - returns curated list of popular songs
+// Used on homepage to display trending/featured tracks
 app.get("/api/featured", async (req, res) => {
   const featuredQueries = [
     "Gameboy Katseye",
@@ -117,6 +127,7 @@ app.get("/api/featured", async (req, res) => {
   ];
 
   try {
+    // Fetch featured songs in parallel and filter out nulls
     const promises = featuredQueries.map(async (query) => {
       const response = await fetch(
         `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=1`
@@ -143,8 +154,8 @@ app.get("/api/featured", async (req, res) => {
   }
 });
 
+// Mount playlist routes
 app.use("/api/playlists", playlistRoutes);
 
-
-// Start  the server
+// Start the server and listen on configured port
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,5 +1,8 @@
+// Handles all playlist operations: CRUD and song management
+
 const API_BASE = `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/playlists`;
 
+// Helper to build auth headers with JWT token
 function authHeader() {
   const token = localStorage.getItem("authToken");
   const headers: Record<string, string> = {
@@ -11,6 +14,7 @@ function authHeader() {
   return headers;
 }
 
+// Create new playlist
 export async function createPlaylist(name: string, description = "", userId = "demo-user") {
   const res = await fetch(`${API_BASE}`, {
     method: "POST",
@@ -20,6 +24,7 @@ export async function createPlaylist(name: string, description = "", userId = "d
   return res.json();
 }
 
+// Get all playlists for user
 export async function getPlaylists(userId = "demo-user") {
   const token = localStorage.getItem("authToken");
   const headers: any = token ? { Authorization: `Bearer ${token}` } : {};
@@ -27,6 +32,7 @@ export async function getPlaylists(userId = "demo-user") {
   return res.json();
 }
 
+// Get single playlist by ID
 export async function getPlaylist(id: string) {
   const token = localStorage.getItem("authToken");
   const headers: any = token ? { Authorization: `Bearer ${token}` } : {};
@@ -34,11 +40,13 @@ export async function getPlaylist(id: string) {
   return res.json();
 }
 
+// Delete playlist
 export async function deletePlaylist(id: string) {
   const res = await fetch(`${API_BASE}/${id}`, { method: "DELETE", headers: authHeader() });
   return res.json();
 }
 
+// Add song to playlist
 export async function addSongToPlaylist(id: string, song: any) {
   const res = await fetch(`${API_BASE}/${id}/song`, {
     method: "POST",
@@ -48,11 +56,13 @@ export async function addSongToPlaylist(id: string, song: any) {
   return res.json();
 }
 
+// Remove song from playlist
 export async function removeSongFromPlaylist(id: string, songId: string) {
   const res = await fetch(`${API_BASE}/${id}/song/${songId}`, { method: "DELETE", headers: authHeader() });
   return res.json();
 }
 
+// Update playlist cover image
 export async function updatePlaylistCover(id: string, coverImage: string) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "PUT",
@@ -68,6 +78,7 @@ export async function updatePlaylistCover(id: string, coverImage: string) {
   return data;
 }
 
+// Update playlist description
 export async function updatePlaylistDescription(id: string, description: string) {
   const res = await fetch(`${API_BASE}/${id}`, {
     method: "PUT",

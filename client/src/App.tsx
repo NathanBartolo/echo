@@ -1,4 +1,7 @@
-// src/App.tsx
+// Main app router
+
+
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import SongPage from "./pages/SongPage";
@@ -21,7 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/discover" element={<SongSearchPage />} /> {/* Song search */}
+        <Route path="/discover" element={<SongSearchPage />} /> {/* Song search and filtering */}
         <Route path="/playlists" element={<ProtectedRoute>{<PlaylistPage />}</ProtectedRoute>} />
         <Route path="/playlist/:id" element={<ProtectedRoute>{<PlaylistDetail />}</ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute>{<ProfilePage />}</ProtectedRoute>} />

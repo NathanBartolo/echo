@@ -1,6 +1,9 @@
+// Sets up Google OAuth 2.0 strategy and session serialization
+
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-// Validate required env vars early to provide a clearer error message
+
+// Showed required env vars early to provide a clearer error message
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   throw new Error(
     "Missing Google OAuth configuration. Please set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in your environment."
@@ -9,6 +12,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
+// Configure Google OAuth strategy
 passport.use(
   new GoogleStrategy(
     {
@@ -20,9 +24,11 @@ passport.use(
       try {
         let user = await User.findOne({ googleId: profile.id });
 
-
+        // Get admin email from env to assign admin role
         const adminEmail = process.env.ADMIN_EMAIL;
         const email = profile.emails?.[0]?.value || `${profile.id}@google.com`;
+        
+        // Create new user if not found
         if (!user) {
           user = await User.create({
             name: profile.displayName,
@@ -32,6 +38,7 @@ passport.use(
             role: email === adminEmail ? "admin" : "user",
           });
         } else if (user.email === adminEmail && user.role !== "admin") {
+          // Promote user to admin if they use admin email
           user.role = "admin";
           await user.save();
         }
@@ -44,10 +51,12 @@ passport.use(
   )
 );
 
+// Store user ID in session
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
+// Retrieve user from database using stored ID
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);

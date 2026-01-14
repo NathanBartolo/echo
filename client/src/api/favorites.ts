@@ -1,5 +1,8 @@
+// Handles favorite songs operations: get, add, remove
+
 const API_BASE = `${import.meta.env.VITE_API_BASE || 'http://localhost:5000'}/api/favorites`;
 
+// Helper to build auth headers with JWT token
 function authHeader() {
   const token = localStorage.getItem("authToken");
   const headers: Record<string, string> = {
@@ -11,6 +14,7 @@ function authHeader() {
   return headers;
 }
 
+// Get all user's favorite songs
 export async function getFavorites() {
   const res = await fetch(`${API_BASE}`, {
     headers: authHeader(),
@@ -18,6 +22,7 @@ export async function getFavorites() {
   return res.json();
 }
 
+// Add song to user's favorites
 export async function addFavorite(song: { id: string; title: string; artist: string; album?: string; cover?: string; previewUrl?: string | null }) {
   const res = await fetch(`${API_BASE}`, {
     method: "POST",
@@ -27,6 +32,7 @@ export async function addFavorite(song: { id: string; title: string; artist: str
   return res.json();
 }
 
+// Remove song from user's favorites
 export async function removeFavorite(songId: string) {
   const res = await fetch(`${API_BASE}/${songId}`, {
     method: "DELETE",

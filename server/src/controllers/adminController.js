@@ -1,5 +1,9 @@
+// Admin controller
+// Handles admin-only operations: user management and statistics
+
 const User = require("../models/userModel");
 
+// List all users in system (admin only)
 const listUsers = async (req, res) => {
   try {
     const users = await User.find({}).select("-passwordHash").sort({ createdAt: -1 });
@@ -10,6 +14,7 @@ const listUsers = async (req, res) => {
   }
 };
 
+// Get single user by ID (admin only)
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-passwordHash");
@@ -21,11 +26,14 @@ const getUserById = async (req, res) => {
   }
 };
 
+// Update user role (admin only)
+// Can modify users between user and admin roles
 const updateUserRole = async (req, res) => {
   try {
     const { id } = req.params;
     const { role } = req.body;
 
+    // Validate role is one of allowed values
     if (!["user", "admin"].includes(role)) {
       return res.status(400).json({ error: "Invalid role" });
     }
@@ -39,6 +47,7 @@ const updateUserRole = async (req, res) => {
   }
 };
 
+// Delete user account (admin only)
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -51,6 +60,8 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// Get system statistics (admin only)
+// Returns total users, admin count, and regular user count
 const getStats = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();

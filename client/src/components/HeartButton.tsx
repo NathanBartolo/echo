@@ -1,3 +1,6 @@
+// Heart/favorites button component
+
+
 import { useAuth } from "../context/AuthContext";
 import { addFavorite, removeFavorite } from "../api/favorites";
 import "../styles/heartButton.css";
@@ -17,21 +20,25 @@ type HeartButtonProps = {
 export default function HeartButton({ song, size = "medium" }: HeartButtonProps) {
   const { user, setFavorites, isFavorite } = useAuth();
   
+  // Only show button if user is logged in
   if (!user) return null;
 
   const favorited = isFavorite(song.id);
 
+  // Handle adding or removing from favorites
   const handleToggle = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     try {
       if (favorited) {
+        // Remove from favorites
         const result = await removeFavorite(song.id);
         if (!result.error) {
           setFavorites(result);
         }
       } else {
+        // Add to favorites
         const result = await addFavorite({
           id: song.id,
           title: song.title,
