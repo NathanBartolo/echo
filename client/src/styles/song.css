@@ -532,6 +532,14 @@
   overflow: hidden;
 }
 
+/* Song page back button styling */
+.song-page .back-btn {
+  padding: 10px 100px;
+  max-width: none;
+  width: auto;
+  margin-bottom: 30px;
+}
+
 /* Song layout */
 .song-content {
   display: flex;
