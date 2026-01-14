@@ -172,8 +172,8 @@ export default function PlaylistDetail() {
     return (
       <>
         <NavBar />
-        <div className="playlist-detail-container">
-          <p>Loading...</p>
+        <div className="playlist-detail-container loading-container">
+          <p className="loading-text">Loading...</p>
         </div>
       </>
     );

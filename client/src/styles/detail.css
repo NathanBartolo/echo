@@ -2,6 +2,21 @@
    DETAIL PAGES SECTION (Album & Playlist)
    ============================================ */
 
+/* Loading State Styling */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  color: #666;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
 /* ============================================
    ALBUM DETAIL SECTION
    ============================================ */
