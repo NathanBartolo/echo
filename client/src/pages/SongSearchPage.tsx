@@ -109,7 +109,7 @@ const SongSearchPage = () => {
         }
 
         // Shuffle songs to mix artists
-        const shuffled = shuffleSongs(allFamousSongs.slice(0, 60));
+        const shuffled = shuffleSongs(allFamousSongs.slice(0, 300));
         setAllSongs(shuffled);
         setResults(
           shuffled.map((song) => ({
