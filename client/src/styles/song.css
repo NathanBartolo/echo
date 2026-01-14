@@ -656,8 +656,8 @@ select:focus {
   font-weight: 500;
 }
 
-/* Responsive */
-/* Tablet */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .song-search-container {
     padding: 30px 20px 50px;

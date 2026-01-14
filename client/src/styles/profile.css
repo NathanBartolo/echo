@@ -377,7 +377,8 @@
   transform: none;
 }
 
-/* Responsive */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .profile-container {
     padding: 0 2.5rem 4rem;
@@ -388,6 +389,7 @@
   }
 }
 
+/* Phone View */
 @media (max-width: 640px) {
   .profile-container {
     padding: 0 1.5rem 3rem;

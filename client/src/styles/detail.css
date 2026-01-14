@@ -949,8 +949,8 @@
   transform: translateY(0);
 }
 
-/* Responsive */
-/* Tablet */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .album-detail-container {
     padding: 30px 20px 50px;
@@ -1013,7 +1013,7 @@
   }
 }
 
-/* Phone */
+/* Phone View */
 @media (max-width: 640px) {
   .album-detail-container {
     padding: 25px 20px 40px;

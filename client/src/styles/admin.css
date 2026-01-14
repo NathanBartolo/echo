@@ -166,8 +166,8 @@
   border-color: #ff6b6b;
 }
 
-/* Responsive */
-/* Tablet */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .admin-container {
     padding: 20px;
@@ -196,7 +196,7 @@
   }
 }
 
-/* Phone */
+/* Phone View */
 @media (max-width: 640px) {
   .admin-panel {
     padding-top: 20px;

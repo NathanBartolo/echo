@@ -57,11 +57,14 @@ const SongSearchPage = () => {
     const fetchFamousSongs = async () => {
       try {
         const modernArtists = [
+          "Sabrina Carpenter",
+          "Chappel Roan",
+          "Raye",
           "Taylor Swift",
           "The Weeknd",
           "Billie Eilish",
           "Dua Lipa",
-          "Post Malone",
+          "Bruno Mars",
           "Ariana Grande",
           "Drake",
           "Kendrick Lamar",
@@ -96,7 +99,7 @@ const SongSearchPage = () => {
     fetchFamousSongs();
   }, []);
 
-  // Shuffle function that avoids consecutive same-artist songs
+  // Shuffle function that avoids consecutive same-artist songs 
   const shuffleSongs = (songsArray: Song[]) => {
     const shuffled = [...songsArray];
     let iterations = 0;
@@ -107,7 +110,7 @@ const SongSearchPage = () => {
       for (let i = 0; i < shuffled.length - 1; i++) {
         if (shuffled[i].artist === shuffled[i + 1].artist) {
           isBetter = false;
-          // Swap with a random song
+          // Swap with a random song not the same artist
           const randomIndex = Math.floor(Math.random() * shuffled.length);
           [shuffled[i + 1], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i + 1]];
           break;
@@ -146,18 +149,18 @@ const SongSearchPage = () => {
     }
   };
 
-  // Apply filters
+  // Apply filters function
   const applyFilters = () => {
     let filtered = allSongs;
 
     if (selectedGenre) {
       // Simple genre mapping based on artist
       const genreMap: { [key: string]: string[] } = {
-        "Pop": ["Taylor Swift", "Dua Lipa", "Ariana Grande", "Harry Styles", "Ed Sheeran"],
-        "Hip-Hop": ["Drake", "Kendrick Lamar", "Post Malone"],
-        "R&B": ["The Weeknd", "Drake"],
-        "Electronic": ["Billie Eilish", "The Weeknd"],
-        "Alternative": ["Billie Eilish"]
+        "Pop": ["Taylor Swift", "Katseye", "Ariana Grande", "Harry Styles", "Ed Sheeran", "Billie Eilish", "Bruno Mars", "Dua Lipa", "Olivia Rodrigo", "Shawn Mendes", "Chappel Roan"],
+        "Hip-Hop": ["Drake", "Kendrick Lamar", "Travis Scott", "J. Cole", "Cardi B", "Megan Thee Stallion", "Lil Baby", "Kanye West", "Nicki Minaj"],
+        "R&B": ["The Weeknd", "Daniel Caesar", "H.E.R.", "SZA", "Jhene Aiko", "Giveon", "Frank Ocean", "Summer Walker"],
+        "Electronic": ["Daft Punk", "The Weeknd", "Calvin Harris", "Zedd", "Marshmello", "Kygo", "Skrillex", "Diplo"],
+        "Alternative": ["Teddy Swims", "Tame Impala", "Lorde", "Imagine Dragons", "The Killers", "Arctic Monkeys"],
       };
       const artistsInGenre = genreMap[selectedGenre] || [];
       filtered = filtered.filter((s) =>
@@ -177,7 +180,7 @@ const SongSearchPage = () => {
           const songYear = parseInt(s.year || "0");
           return songYear >= decadeStart && songYear < decadeEnd;
         } else {
-          // Handle specific year filtering
+          // Handle specific year filtering (e.g., "2021")
           return s.year === selectedYear;
         }
       });
@@ -196,7 +199,7 @@ const SongSearchPage = () => {
       });
     }
 
-    // Create results with mixed songs and albums
+    // Created results with mixed songs and albums
     const mixed: SearchResult[] = [];
     filtered.forEach((song) => {
       mixed.push({
@@ -261,10 +264,10 @@ const SongSearchPage = () => {
       const data = await res.json();
       const songList = Array.isArray(data) ? data : [data];
 
-      // Update allSongs with search results so filters work on them
+
       setAllSongs(songList);
 
-      // Extract unique albums from search results
+  
       const albumMap = new Map<string, Album>();
       songList.forEach((song: Song) => {
         const albumKey = `${song.album}-${song.artist}`;

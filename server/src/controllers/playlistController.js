@@ -1,6 +1,6 @@
 const Playlist = require("../models/Playlist");
 
-// Create a playlist for a user (demo-user by default)
+// Create a playlist for a user
 exports.createPlaylist = async (req, res) => {
   try {
     const userId = (req.user && req.user._id) || req.body.userId || "demo-user";
@@ -18,7 +18,7 @@ exports.createPlaylist = async (req, res) => {
   }
 };
 
-// Get all playlists for a user
+// Get all playlists for a user 
 exports.getPlaylistsForUser = async (req, res) => {
   try {
     const userId = (req.user && req.user._id) || req.params.userId || "demo-user";
@@ -30,7 +30,7 @@ exports.getPlaylistsForUser = async (req, res) => {
   }
 };
 
-// Get single playlist by id
+// Get single playlist by id function
 exports.getPlaylistById = async (req, res) => {
   try {
     const playlist = await Playlist.findById(req.params.id);
@@ -50,7 +50,7 @@ exports.getPlaylistById = async (req, res) => {
   }
 };
 
-// Delete playlist
+// Delete playlist function
 exports.deletePlaylist = async (req, res) => {
   try {
     const id = req.params.id;

@@ -626,7 +626,8 @@
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
 
-/* Responsive Styles */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .playlists-container {
     padding: 0 2.5rem;

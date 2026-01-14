@@ -205,7 +205,8 @@
   color: #ff3b30;
 }
 
-/* Responsive Styles */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .navbar-content {
     padding: 0 30px;
@@ -293,6 +294,7 @@
   transform: rotate(-45deg) translate(7px, -6px);
 }
 
+/* Phone View */
 @media (max-width: 640px) {
   .main-navbar {
     padding: 12px 20px;

@@ -95,7 +95,6 @@ app.get("/api/song/:id", async (req, res) => {
       releaseDate: s.releaseDate,
       genre: s.primaryGenreName,
       trackTimeMillis: s.trackTimeMillis,
-      // add any other fields you want
     };
 
     res.json(song);
@@ -109,8 +108,8 @@ app.get("/api/featured", async (req, res) => {
   const featuredQueries = [
     "Gameboy Katseye",
     "Opalite Taylor Swift",
-    "Man I Need Olivia Dean",
-    "Updside Down Diana Ross",
+    "I Just Might Bruno Mars",
+    "Purple Rain Prince",
     "Multo Cup Of Joe",
     "back to friends sombr",
     "Where is my husband Raye",
@@ -147,5 +146,5 @@ app.get("/api/featured", async (req, res) => {
 app.use("/api/playlists", playlistRoutes);
 
 
-// Start server
+// Start  the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -18,7 +18,7 @@ const protect = async (req, res, next) => {
     }
   }
 
-  // Allow demo-user without token
+  
   req.user = null;
   next();
 };

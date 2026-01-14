@@ -267,13 +267,13 @@ const AlbumDetailPage = () => {
                   </div>
                   <div className="song-actions">
                     <button 
-                      className="song-play-btn"
+                      className="open-btn"
                       onClick={() => {
                         const id = song.trackId ?? song.title;
                         navigate(`/song/${encodeURIComponent(String(id))}`, { state: { song } });
                       }}
                     >
-                      ▶
+                      Open
                     </button>
                     <div className="add-to-playlist-container">
                       <button

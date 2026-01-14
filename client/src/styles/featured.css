@@ -164,7 +164,8 @@
   transform: scale(1);
 }
 
-/* Responsive */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   .featured-section {
     padding: 4rem 2.5rem;
@@ -180,6 +181,7 @@
   }
 }
 
+/* Phone View */
 @media (max-width: 640px) {
   .featured-section {
     padding: 3rem 1.5rem;

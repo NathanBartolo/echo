@@ -340,8 +340,8 @@ header {
   margin: 2px 0;
 }
 
-/* Responsive Styles */
-/* Tablet */
+
+/* Tablet View */
 @media (max-width: 1024px) {
   header {
     min-height: 90vh;

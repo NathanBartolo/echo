@@ -2,7 +2,7 @@
 // SONG PAGE - Song details and controls
 // ============================================
 
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import "../styles/song.css";
@@ -21,6 +21,7 @@ interface Song {
 const SongPage = () => {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [song, setSong] = useState<Song | null>(location.state?.song || null);
   const [playlists, setPlaylists] = useState<any[]>([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
@@ -102,6 +103,11 @@ const SongPage = () => {
       </div>
 
       <NavBar />
+
+      {/* Back Button */}
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        ← Back
+      </button>
 
       {/* SONG DETAILS */}
       <section className="song-content">

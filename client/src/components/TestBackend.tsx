@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // ============================================
-// TEST BACKEND - Backend testing utility
+// TEST BACKEND - Backend testing component
 // ============================================
 
 const TestBackend = () => {

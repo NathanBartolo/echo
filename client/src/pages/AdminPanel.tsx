@@ -1,5 +1,5 @@
 // ============================================
-// ADMIN PANEL - User and system management
+// ADMIN PANEL - User and system management (for admin accounts only)
 // ============================================
 
 import { useEffect, useState, useContext } from "react";

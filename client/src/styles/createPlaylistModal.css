@@ -199,6 +199,8 @@ form {
   transform: translateY(0);
 }
 
+
+/* Tablet  View*/
 @media (max-width: 480px) {
   .modal-content {
     width: 95%;
