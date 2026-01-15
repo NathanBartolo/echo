@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
-import { getPlaylist, removeSongFromPlaylist, updatePlaylistDescription, addSongToPlaylist } from "../api/playlists";
+import { getPlaylist, removeSongFromPlaylist, updatePlaylistDescription, addSongToPlaylist, reorderPlaylistSongs } from "../api/playlists";
 import { removeFavorite } from "../api/favorites";
 import "../styles/detail.css";
 
@@ -25,6 +25,8 @@ export default function PlaylistDetail() {
   const [isSearching, setIsSearching] = useState(false);
   const [addingMessage, setAddingMessage] = useState<{ [key: string]: string }>({});
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -166,6 +168,61 @@ export default function PlaylistDetail() {
 
   const isSongInPlaylist = (trackId: string) => {
     return playlist?.songs?.some((s: any) => s.trackId === trackId || s._id === trackId);
+  };
+
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    if (isFavoritesPage) return; // Don't allow reordering in favorites
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", e.currentTarget.innerHTML);
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    if (isFavoritesPage) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = async (e: React.DragEvent, dropIndex: number) => {
+    if (isFavoritesPage || draggedIndex === null || !id) return;
+    e.preventDefault();
+    
+    if (draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    // Create a new array with reordered songs
+    const newSongs = [...playlist.songs];
+    const [draggedSong] = newSongs.splice(draggedIndex, 1);
+    newSongs.splice(dropIndex, 0, draggedSong);
+
+    // Update local state immediately for responsive UI
+    setPlaylist({ ...playlist, songs: newSongs });
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+
+    // Send update to backend
+    try {
+      const songIds = newSongs.map((song: any) => song._id);
+      await reorderPlaylistSongs(id, songIds);
+    } catch (err) {
+      console.error("Failed to reorder songs in playlist", id, ":", err);
+      // Revert on error
+      const data = await getPlaylist(id);
+      setPlaylist(data);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   if (loading) {
@@ -358,10 +415,21 @@ export default function PlaylistDetail() {
               {playlist.songs.map((song: any, index: number) => (
                 <div
                   key={song._id}
-                  className="song-list-item"
+                  className={`song-list-item ${draggedIndex === index ? 'dragging' : ''} ${dragOverIndex === index ? 'drag-over' : ''} ${!isFavoritesPage ? 'draggable' : ''}`}
+                  draggable={!isFavoritesPage}
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDragOver={(e) => handleDragOver(e, index)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, index)}
+                  onDragEnd={handleDragEnd}
                   onMouseEnter={() => playSongPreview(song.previewUrl)}
                   onMouseLeave={stopSongPreview}
                 >
+                  {!isFavoritesPage && (
+                    <div className="drag-handle" title="Drag to reorder">
+                      ⋮⋮
+                    </div>
+                  )}
                   <div className="song-number">{index + 1}</div>
                   <div className="song-thumbnail">
                     <img src={song.cover} alt={song.title} />

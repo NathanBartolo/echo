@@ -157,3 +157,47 @@ exports.removeSongFromPlaylist = async (req, res) => {
     res.status(500).json({ error: "Could not remove song" });
   }
 };
+
+// Reorder songs in playlist
+exports.reorderSongs = async (req, res) => {
+  try {
+    const playlistId = req.params.id;
+    const { songIds } = req.body;
+
+    if (!Array.isArray(songIds)) {
+      return res.status(400).json({ message: "songIds must be an array" });
+    }
+
+    const playlist = await Playlist.findById(playlistId);
+    if (!playlist) return res.status(404).json({ message: "Playlist not found" });
+
+    if (req.user && req.user.role !== "admin") {
+      if (playlist.userId.toString() !== req.user._id.toString()) {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+    }
+
+    // Create a map of songs by their _id for quick lookup
+    const songMap = new Map();
+    playlist.songs.forEach(song => {
+      songMap.set(song._id.toString(), song);
+    });
+
+    // Reorder songs based on the provided songIds array
+    const reorderedSongs = songIds
+      .map(id => songMap.get(id.toString()))
+      .filter(song => song !== undefined);
+
+    // Ensure all songs are accounted for
+    if (reorderedSongs.length !== playlist.songs.length) {
+      return res.status(400).json({ message: "Invalid song IDs provided" });
+    }
+
+    playlist.songs = reorderedSongs;
+    await playlist.save();
+    res.json(playlist);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Could not reorder songs" });
+  }
+};
